@@ -1,0 +1,23 @@
+name: "Code Coverage"
+
+on:
+  schedule:
+    - cron: 13 9 * * *
+  workflow_dispatch:
+
+env:
+  # Use `haswell` for target processor instead of `native` on account of
+  # some GitHub Action runners do not support certain AVX512 instructions.
+  RUSTFLAGS: -C target-cpu=haswell
+
+jobs:
+  coverage:
+    name: Code Coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Source Code Checkout
+        uses: actions/checkout@v2
+
+      - name: codecov.io Report Upload
+        uses: codecov/codecov-action@v2
