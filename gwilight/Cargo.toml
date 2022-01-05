@@ -1,0 +1,12 @@
+[package]
+name = "gwilight"
+authors = [ "The HarTex Community" ]
+description = """
+The advertisment crate for the Gwilight Ecosystem, serves absolutely no purpose. Please use the
+individual crates instead.
+"""
+edition = "2021"
+license = "ISC"
+repository = "https://github.com/HarTexTeam/gwilight"
+rust-version = "1.57.0"
+version = "0.1.0"
