@@ -1,0 +1,14 @@
+[package]
+name = "gwilight_model"
+authors = [ "The HarTex Community" ]
+description = """
+Guilded API models for the Gwilight ecosystem of crates.
+"""
+edition = "2021"
+license = "ISC"
+repository = "https://github.com/HarTexTeam/gwilight"
+rust-version = "1.57.0"
+version = "0.1.0"
+
+[dependencies]
+serde = { default-features = false, features = [ "derive", "std" ], version = "1.0.132" }
