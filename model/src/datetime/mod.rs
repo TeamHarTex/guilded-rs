@@ -19,7 +19,7 @@ impl Timestamp {
 
         if datetime.len() < LENGTH {
             return Err(error::TimestampParseError {
-                kind: error::TimestampParseErrorKind::ParseFailure,
+                kind: error::TimestampParseErrorKind::Format,
                 source: None
             });
         }

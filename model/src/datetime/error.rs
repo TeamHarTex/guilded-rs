@@ -24,5 +24,9 @@ impl TimestampParseError {
 /// Type of `TimestampParseError` that occurred.
 #[derive(Debug)]
 pub enum TimestampParseErrorKind {
+    /// Invalid ISO 8601 format.
+    Format,
+
+    /// Failed to parse the timestamp in ISO 8601 format.
     ParseFailure
 }
