@@ -2,7 +2,7 @@
 
 use std::error::Error;
 
-use time::error::Error as ParseError;
+use time::error::Parse;
 
 /// Reason that a timestamp in ISO 8601 format could not be parsed.
 #[derive(Debug)]
@@ -13,7 +13,7 @@ pub struct TimestampParseError {
 
 impl TimestampParseError {
     /// Create a new error from a `time::error::Error`.
-    pub(super) fn from_parse(source: ParseError) -> Self {
+    pub(super) fn from_parse(source: Parse) -> Self {
         Self {
             kind: TimestampParseErrorKind::ParseFailure,
             source: Some(Box::new(source))

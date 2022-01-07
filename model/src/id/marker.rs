@@ -22,3 +22,10 @@ pub struct MessageMarker;
 #[derive(Clone, Copy, Debug)]
 #[non_exhaustive]
 pub struct UserMarker;
+
+/// A marker for webhook IDs.
+///
+/// Webhooks IDs on Guilded are currently of unknown format.
+#[derive(Clone, Copy, Debug)]
+#[non_exhaustive]
+pub struct WebhookMarker;
