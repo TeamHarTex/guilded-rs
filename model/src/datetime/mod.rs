@@ -1,10 +1,6 @@
 //! Utilities for the handling of ISO 8601 timestamps.
 
-use time::{
-    format_description::well_known::Rfc3339,
-    OffsetDateTime,
-    PrimitiveDateTime
-};
+use time::{format_description::well_known::Rfc3339, OffsetDateTime, PrimitiveDateTime};
 
 pub mod error;
 
@@ -20,7 +16,7 @@ impl Timestamp {
         if datetime.len() < LENGTH {
             return Err(error::TimestampParseError {
                 kind: error::TimestampParseErrorKind::Format,
-                source: None
+                source: None,
             });
         }
 

@@ -8,7 +8,7 @@ use time::error::Parse;
 #[derive(Debug)]
 pub struct TimestampParseError {
     pub kind: TimestampParseErrorKind,
-    pub source: Option<Box<dyn Error + Send + Sync>>
+    pub source: Option<Box<dyn Error + Send + Sync>>,
 }
 
 impl TimestampParseError {
@@ -16,7 +16,7 @@ impl TimestampParseError {
     pub(super) fn from_parse(source: Parse) -> Self {
         Self {
             kind: TimestampParseErrorKind::ParseFailure,
-            source: Some(Box::new(source))
+            source: Some(Box::new(source)),
         }
     }
 }
@@ -28,5 +28,5 @@ pub enum TimestampParseErrorKind {
     Format,
 
     /// Failed to parse the timestamp in ISO 8601 format.
-    ParseFailure
+    ParseFailure,
 }

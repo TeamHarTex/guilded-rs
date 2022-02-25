@@ -2,13 +2,8 @@
 
 use std::{
     any,
-    fmt::{
-        Debug,
-        Display,
-        Formatter,
-        Result as FmtResult
-    },
-    marker::PhantomData
+    fmt::{Debug, Display, Formatter, Result as FmtResult},
+    marker::PhantomData,
 };
 
 use uuid::Uuid;
@@ -19,7 +14,7 @@ pub mod marker;
 #[derive(Clone)]
 pub struct Id<M> {
     phantom: PhantomData<M>,
-    value: IdValue
+    value: IdValue,
 }
 
 impl<M> Debug for Id<M> {
@@ -38,8 +33,7 @@ impl<M> Debug for Id<M> {
                 f.write_str(slice)?;
                 f.write_str(">")?;
             }
-        }
-        else {
+        } else {
             // If that is NOT the case, then the type name returned is simply the name of the type.
             // We do no more further processing, simply add the type name to the `Debug`
             // representation.
@@ -58,15 +52,20 @@ impl<M> Debug for Id<M> {
 /// Inner value of an ID; can either be a UUID or a 8-character unique ID.
 #[derive(Clone)]
 pub enum IdValue {
+    /// A unique 8-character ID.
+    EightCharId(String),
+    /// A unique numeric ID.
+    Int(u32),
+    /// A unique UUID.
     Uuid(Uuid),
-    EightCharId(String)
 }
 
 impl Debug for IdValue {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         match self {
+            Self::Int(id) => Display::fmt(id, f),
+            Self::EightCharId(id) => Display::fmt(id, f),
             Self::Uuid(uuid) => Display::fmt(uuid, f),
-            Self::EightCharId(id) => Display::fmt(id, f)
         }
     }
 }
