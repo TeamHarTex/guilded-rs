@@ -1,12 +1,12 @@
 [package]
-name = "gwilight"
+name = "guilded"
 authors = [ "The HarTex Community" ]
 description = """
-The advertisment crate for the Gwilight Ecosystem, serves absolutely no purpose. Please use the
+The advertisment crate for the Guilded-rs Ecosystem, serves absolutely no purpose. Please use the
 individual crates instead.
 """
 edition = "2021"
 license = "ISC"
-repository = "https://github.com/HarTexTeam/gwilight"
+repository = "https://github.com/HarTexTeam/guilded-rs"
 rust-version = "1.57.0"
 version = "0.1.0"

@@ -1,12 +1,12 @@
 [package]
-name = "gwilight_model"
+name = "guilded_model"
 authors = [ "The HarTex Community" ]
 description = """
-Guilded API models for the Gwilight ecosystem of crates.
+Guilded API models for the Guilded-rs ecosystem of crates.
 """
 edition = "2021"
 license = "ISC"
-repository = "https://github.com/HarTexTeam/gwilight"
+repository = "https://github.com/HarTexTeam/guilded-rs"
 rust-version = "1.57.0"
 version = "0.1.0"
 
