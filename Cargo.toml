@@ -1,5 +1,6 @@
 [workspace]
 members = [
     "guilded",
-    "model"
+    "http",
+    "model",
 ]
