@@ -1,0 +1,45 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "**"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  Build:
+    name: Full Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install latest stable Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+          profile: default
+      - name: Build
+        run: cargo build --release
+
+  Test:
+    name: Test
+    needs:
+      - Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install latest stable Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+          profile: default
+      - name: Test
+        run: cargo test
