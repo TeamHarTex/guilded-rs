@@ -1,3 +1,3 @@
-# gwilight
+# guilded-rs
 
-`gwilight` is a powerful, flexible, and scalable ecosystem of Rust libraries for the Guilded API.
+`guilded-rs` is a powerful, flexible, and scalable ecosystem of Rust libraries for the Guilded API.
