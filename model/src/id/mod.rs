@@ -82,7 +82,7 @@ impl<M> IdDeserializerVisitor<M> {
     }
 }
 
-impl<M> Visitor<'_> for IdDeserializerVisitor<M> {
+impl<'de, M> Visitor<'de> for IdDeserializerVisitor<M> {
     type Value = Id<M>;
 
     fn expecting(&self, f: &mut Formatter) -> FmtResult {
@@ -122,7 +122,7 @@ impl<M> Visitor<'_> for IdDeserializerVisitor<M> {
 
     fn visit_newtype_struct<D>(self, deserializer: D) -> Result<Self::Value, D::Error>
     where
-        D: Deserializer<'_>,
+        D: Deserializer<'de>,
     {
         deserializer.deserialize_any(IdDeserializerVisitor::new())
     }
