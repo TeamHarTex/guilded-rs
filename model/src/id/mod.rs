@@ -53,7 +53,7 @@ impl<M> Debug for Id<M> {
 #[derive(Clone)]
 pub enum IdValue {
     /// A unique 8-character ID.
-    EightCharId(String),
+    AlphanumericId(String),
     /// A unique numeric ID.
     Int(u32),
     /// A unique UUID.
@@ -63,8 +63,8 @@ pub enum IdValue {
 impl Debug for IdValue {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         match self {
+            Self::AlphanumericId(id) => Display::fmt(id, f),
             Self::Int(id) => Display::fmt(id, f),
-            Self::EightCharId(id) => Display::fmt(id, f),
             Self::Uuid(uuid) => Display::fmt(uuid, f),
         }
     }

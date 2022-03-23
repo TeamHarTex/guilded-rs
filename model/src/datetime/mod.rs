@@ -2,9 +2,14 @@
 
 use std::fmt::{Formatter, Result as FmtResult};
 
-use serde::de::{Deserialize, Error as DeserializeError,  Visitor};
+use serde::de::{Deserialize, Error as DeserializeError, Visitor};
+use serde::ser::Serialize;
+use serde::Serializer;
 use time::{format_description::well_known::Rfc3339, OffsetDateTime, PrimitiveDateTime};
 
+use self::display::TimestampDisplay;
+
+pub mod display;
 pub mod error;
 
 /// Representation of a UNIX timestamp.
@@ -28,6 +33,10 @@ impl Timestamp {
             .map(Self)
             .map_err(error::TimestampParseError::from_parse)
     }
+
+    pub fn display(self) -> TimestampDisplay {
+        TimestampDisplay::new(self)
+    }
 }
 
 impl<'de> Deserialize<'de> for Timestamp {
@@ -38,13 +47,21 @@ impl<'de> Deserialize<'de> for Timestamp {
     }
 }
 
+impl Serialize for Timestamp {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer {
+        serializer.collect_str(&self.display())
+    }
+}
+
 pub(in crate::datetime) struct TimestampDeserializerVisitor;
 
 impl Visitor<'_> for TimestampDeserializerVisitor {
     type Value = Timestamp;
 
-    fn expecting(&self, formatter: &mut Formatter<'_>) -> FmtResult {
-        formatter.write_str("an rfc3339 timestamp")
+    fn expecting(&self, f: &mut Formatter<'_>) -> FmtResult {
+        f.write_str("an rfc3339 timestamp")
     }
 
     fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
