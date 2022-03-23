@@ -4,7 +4,7 @@ use std::fmt::{Formatter, Result as FmtResult};
 
 use serde::de::{Deserialize, Error as DeserializeError, Visitor};
 use serde::ser::Serialize;
-use serde::Serializer;
+use serde::{Deserializer, Serializer};
 use time::{format_description::well_known::Rfc3339, OffsetDateTime, PrimitiveDateTime};
 
 use self::display::TimestampDisplay;
@@ -42,7 +42,7 @@ impl Timestamp {
 impl<'de> Deserialize<'de> for Timestamp {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
-        D: serde::Deserializer<'de>,
+        D: Deserializer<'de>,
     {
         deserializer.deserialize_any(TimestampDeserializerVisitor)
     }

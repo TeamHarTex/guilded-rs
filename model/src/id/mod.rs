@@ -6,6 +6,9 @@ use std::{
     marker::PhantomData,
 };
 
+use serde::de::{Deserialize, Error as DeError, Visitor};
+use serde::ser::Serialize;
+use serde::{Deserializer, Serializer};
 use uuid::Uuid;
 
 pub mod marker;
@@ -49,7 +52,83 @@ impl<M> Debug for Id<M> {
     }
 }
 
-/// Inner value of an ID; can either be a UUID or a 8-character unique ID.
+impl<'de, M> Deserialize<'de> for Id<M> {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        deserializer.deserialize_any(IdDeserializerVisitor::new())
+    }
+}
+
+impl<M> Serialize for Id<M> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        serializer.collect_str(&format_args!("{:?}", self.value))
+    }
+}
+
+pub(in crate::id) struct IdDeserializerVisitor<M> {
+    phantom: PhantomData<M>,
+}
+
+impl<M> IdDeserializerVisitor<M> {
+    const fn new() -> Self {
+        Self {
+            phantom: PhantomData,
+        }
+    }
+}
+
+impl<M> Visitor<'_> for IdDeserializerVisitor<M> {
+    type Value = Id<M>;
+
+    fn expecting(&self, f: &mut Formatter) -> FmtResult {
+        f.write_str("a valid guilded id")
+    }
+
+    fn visit_u32<E>(self, v: u32) -> Result<Self::Value, E>
+    where
+        E: DeError,
+    {
+        Ok(Id {
+            phantom: PhantomData,
+            value: IdValue::Int(v),
+        })
+    }
+
+    fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
+    where
+        E: DeError,
+    {
+        if let Ok(int) = v.parse::<u32>() {
+            return self.visit_u32(int);
+        }
+
+        if let Ok(uuid) = v.parse::<Uuid>() {
+            return Ok(Id {
+                phantom: PhantomData,
+                value: IdValue::Uuid(uuid),
+            });
+        }
+
+        Ok(Id {
+            phantom: PhantomData,
+            value: IdValue::AlphanumericId(v.to_string()),
+        })
+    }
+
+    fn visit_newtype_struct<D>(self, deserializer: D) -> Result<Self::Value, D::Error>
+    where
+        D: Deserializer<'_>,
+    {
+        deserializer.deserialize_any(IdDeserializerVisitor::new())
+    }
+}
+
+/// Inner value of an ID; can either be a UUID, an integer, or an alphanumeric ID.
 #[derive(Clone)]
 pub enum IdValue {
     /// A unique 8-character ID.
