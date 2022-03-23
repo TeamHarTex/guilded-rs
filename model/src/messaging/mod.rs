@@ -50,7 +50,7 @@ impl ChatMessage {
     }
 
     pub fn is_private(&self) -> Option<bool> {
-        self.is_private.clone()
+        self.is_private
     }
 
     pub fn reply_message_ids(&self) -> Option<Vec<Id<MessageMarker>>> {
