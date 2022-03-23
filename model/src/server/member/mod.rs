@@ -10,7 +10,7 @@ pub struct Member {
     user: User,
     role_ids: Vec<Id<RoleMarker>>,
     nickname: Option<String>,
-    joined_at: Timestamp
+    joined_at: Timestamp,
 }
 
 impl Member {

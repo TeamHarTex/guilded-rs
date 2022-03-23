@@ -33,5 +33,5 @@ impl User {
 #[derive(Clone, Debug)]
 pub enum UserType {
     Bot,
-    User
+    User,
 }
