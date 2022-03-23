@@ -1,6 +1,6 @@
 //! The chat message model.
 
-extern crate serde;
+use serde::{Deserialize, Serialize};
 
 use crate::{
     datetime::Timestamp,
@@ -11,8 +11,8 @@ use crate::{
 };
 
 /// Represents a chat message.
-#[serde(rename_all = "camelCase")]
 #[derive(Clone, Debug, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct ChatMessage {
     channel_id: Id<ChannelMarker>,
     content: String,
@@ -74,8 +74,8 @@ impl ChatMessage {
 }
 
 /// Represents the type of a chat message.
-#[serde(rename_all = "lowercase")]
 #[derive(Clone, Debug, Deserialize, Serialize)]
+#[serde(rename_all = "lowercase")]
 pub enum ChatMessageType {
     /// A message sent by a user or a bot.
     Default,

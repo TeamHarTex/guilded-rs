@@ -1,14 +1,14 @@
 //! The member object.
 
-extern crate serde;
+use serde::{Deserialize, Serialize};
 
 use crate::datetime::Timestamp;
 use crate::id::{marker::RoleMarker, Id};
 use crate::user::User;
 
 /// Represents a server member.
-#[serde(rename_all = "camelCase")]
 #[derive(Clone, Debug, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Member {
     user: User,
     role_ids: Vec<Id<RoleMarker>>,

@@ -1,6 +1,6 @@
 //! The list item object.
 
-extern crate serde;
+use serde::{Deserialize, Serialize};
 
 use crate::{
     datetime::Timestamp,
@@ -11,8 +11,8 @@ use crate::{
 };
 
 /// Represents a list item.
-#[serde(rename_all = "camelCase")]
 #[derive(Clone, Debug, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct ListItem {
     channel_id: Id<ChannelMarker>,
     created_at: Timestamp,

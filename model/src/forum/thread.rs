@@ -1,6 +1,6 @@
 //! The forum thread object.
 
-extern crate serde;
+use serde::{Deserialize, Serialize};
 
 use crate::{
     datetime::Timestamp,
@@ -11,8 +11,8 @@ use crate::{
 };
 
 /// Represents a forum thread.
-#[serde(rename_all = "camelCase")]
 #[derive(Clone, Debug, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct ForumThread {
     channel_id: Id<ChannelMarker>,
     content: Option<String>,

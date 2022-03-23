@@ -1,12 +1,13 @@
 //! The user object.
 
-extern crate serde;
+use serde::{Deserialize, Serialize};
 
 use crate::datetime::Timestamp;
 use crate::id::{marker::UserMarker, Id};
 
-#[serde(rename_all = "camelCase")]
+/// Represents a user.
 #[derive(Clone, Debug, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct User {
     id: Id<UserMarker>,
     r#type: UserType,
@@ -33,8 +34,8 @@ impl User {
 }
 
 /// Represents the type of a user.
-#[serde(rename_all = "lowercase")]
 #[derive(Clone, Debug, Deserialize, Serialize)]
+#[serde(rename_all = "lowercase")]
 pub enum UserType {
     Bot,
     User,

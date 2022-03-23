@@ -1,6 +1,6 @@
 //! The content reaction object.
 
-extern crate serde;
+use serde::{Deserialize, Serialize};
 
 use crate::{
     datetime::Timestamp,
@@ -11,8 +11,8 @@ use crate::{
 };
 
 /// Represents a reaction object.
-#[serde(rename_all = "camelCase")]
 #[derive(Clone, Debug, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Reaction {
     created_at: Timestamp,
     created_by: Id<UserMarker>,
