@@ -23,10 +23,12 @@ impl TimestampParseError {
 }
 
 impl Display for TimestampParseError {
-    fn fmt(&self, f: &mut Formatter<'_>) ->FmtResult {
+    fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         match self.kind {
             TimestampParseErrorKind::Format => f.write_str("invalid iso 8601 string"),
-            TimestampParseErrorKind::ParseFailure => f.write_str("failed to parse iso 8601 timestamp"),
+            TimestampParseErrorKind::ParseFailure => {
+                f.write_str("failed to parse iso 8601 timestamp")
+            }
         }
     }
 }

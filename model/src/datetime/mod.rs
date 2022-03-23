@@ -42,7 +42,8 @@ impl Timestamp {
 impl<'de> Deserialize<'de> for Timestamp {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
-        D: serde::Deserializer<'de> {
+        D: serde::Deserializer<'de>,
+    {
         deserializer.deserialize_any(TimestampDeserializerVisitor)
     }
 }
@@ -50,7 +51,8 @@ impl<'de> Deserialize<'de> for Timestamp {
 impl Serialize for Timestamp {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
-        S: Serializer {
+        S: Serializer,
+    {
         serializer.collect_str(&self.display())
     }
 }
@@ -66,7 +68,8 @@ impl Visitor<'_> for TimestampDeserializerVisitor {
 
     fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
     where
-        E: DeserializeError, {
+        E: DeserializeError,
+    {
         Timestamp::parse(value).map_err(DeserializeError::custom)
     }
 }
