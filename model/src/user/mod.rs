@@ -1,5 +1,7 @@
 //! The user object.
 
+extern crate serde;
+
 use crate::datetime::Timestamp;
 use crate::id::{marker::UserMarker, Id};
 

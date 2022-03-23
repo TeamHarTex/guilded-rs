@@ -1,5 +1,7 @@
 //! The chat message model.
 
+extern crate serde;
+
 use crate::{
     datetime::Timestamp,
     id::{

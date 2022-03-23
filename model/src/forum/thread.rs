@@ -1,5 +1,7 @@
 //! The forum thread object.
 
+extern crate serde;
+
 use crate::{
     datetime::Timestamp,
     id::{

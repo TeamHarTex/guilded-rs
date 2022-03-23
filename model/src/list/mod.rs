@@ -1,5 +1,7 @@
 //! The list item object.
 
+extern crate serde;
+
 use crate::{
     datetime::Timestamp,
     id::{
