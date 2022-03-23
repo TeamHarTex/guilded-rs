@@ -8,7 +8,9 @@ use crate::{
     },
 };
 
-#[derive(Clone, Debug)]
+/// Represents a reaction object.
+#[serde(rename_all = "camelCase")]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Reaction {
     created_at: Timestamp,
     created_by: Id<UserMarker>,

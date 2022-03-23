@@ -9,7 +9,8 @@ use crate::{
 };
 
 /// Represents a forum thread.
-#[derive(Clone, Debug)]
+#[serde(rename_all = "camelCase")]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Document {
     channel_id: Id<ChannelMarker>,
     content: String,

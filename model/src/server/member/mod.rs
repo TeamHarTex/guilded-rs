@@ -5,7 +5,8 @@ use crate::id::{marker::RoleMarker, Id};
 use crate::user::User;
 
 /// Represents a server member.
-#[derive(Clone, Debug)]
+#[serde(rename_all = "camelCase")]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Member {
     user: User,
     role_ids: Vec<Id<RoleMarker>>,

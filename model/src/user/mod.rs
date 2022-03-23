@@ -3,7 +3,8 @@
 use crate::datetime::Timestamp;
 use crate::id::{marker::UserMarker, Id};
 
-#[derive(Clone, Debug)]
+#[serde(rename_all = "camelCase")]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct User {
     id: Id<UserMarker>,
     r#type: UserType,
@@ -30,7 +31,8 @@ impl User {
 }
 
 /// Represents the type of a user.
-#[derive(Clone, Debug)]
+#[serde(rename_all = "lowercase")]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub enum UserType {
     Bot,
     User,

@@ -9,7 +9,8 @@ use crate::{
 };
 
 /// Represents a chat message.
-#[derive(Clone, Debug)]
+#[serde(rename_all = "camelCase")]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct ChatMessage {
     channel_id: Id<ChannelMarker>,
     content: String,
@@ -71,7 +72,8 @@ impl ChatMessage {
 }
 
 /// Represents the type of a chat message.
-#[derive(Clone, Debug)]
+#[serde(rename_all = "lowercase")]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub enum ChatMessageType {
     /// A message sent by a user or a bot.
     Default,

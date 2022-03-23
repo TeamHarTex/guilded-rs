@@ -9,7 +9,8 @@ use crate::{
 };
 
 /// Represents a list item.
-#[derive(Clone, Debug)]
+#[serde(rename_all = "camelCase")]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct ListItem {
     channel_id: Id<ChannelMarker>,
     created_at: Timestamp,
