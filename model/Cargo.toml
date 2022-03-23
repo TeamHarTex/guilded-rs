@@ -8,8 +8,8 @@ edition = "2021"
 license = "ISC"
 repository = "https://github.com/HarTexTeam/guilded-rs"
 rust-version = "1.57.0"
-version = "0.1.0-dev.1"
+version = "0.1.0-dev.2"
 
 [dependencies]
-uuid = { default-features = false, features = [ "v5" ], version = "0.8.2" }
 time = { default-features = false, features = [ "parsing", "std" ], version = "0.3.5" }
+uuid = { default-features = false, features = [ "v5" ], version = "0.8.2" }

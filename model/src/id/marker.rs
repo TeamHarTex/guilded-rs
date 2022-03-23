@@ -11,14 +11,14 @@ pub struct ChannelMarker;
 
 /// A marker for document IDs.
 ///
-/// Document IDs on guilded are unique numerical IDs (for example, `123456`).
+/// Document IDs on Guilded are unique numerical IDs (for example, `123456`).
 #[derive(Clone, Copy, Debug)]
 #[non_exhaustive]
 pub struct DocumentMarker;
 
 /// A marker for forum thread IDs.
 ///
-/// Forum thread IDs on guilded are unique numerical IDs (for example, `123456`).
+/// Forum thread IDs on Guilded are unique numerical IDs (for example, `123456`).
 #[derive(Clone, Copy, Debug)]
 #[non_exhaustive]
 pub struct ForumThreadMarker;
@@ -46,10 +46,14 @@ pub struct UserMarker;
 
 /// A marker for reaction IDs.
 ///
-/// Reaction IDs on guilded are unique numerical IDs (for example, `123456`).
+/// Reaction IDs on Guilded are unique numerical IDs (for example, `123456`).
 #[derive(Clone, Copy, Debug)]
 #[non_exhaustive]
 pub struct ReactionMarker;
+
+#[derive(Clone, Copy, Debug)]
+#[non_exhaustive]
+pub struct RoleMarker;
 
 /// A marker for server IDs.
 ///
