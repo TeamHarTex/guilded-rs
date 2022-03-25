@@ -3,6 +3,7 @@
 use std::{
     any,
     fmt::{Debug, Display, Formatter, Result as FmtResult},
+    hash::{Hash, Hasher},
     marker::PhantomData,
 };
 
@@ -145,6 +146,16 @@ impl Debug for IdValue {
             Self::AlphanumericId(id) => Display::fmt(id, f),
             Self::Int(id) => Display::fmt(id, f),
             Self::Uuid(uuid) => Display::fmt(uuid, f),
+        }
+    }
+}
+
+impl Hash for IdValue {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        match self {
+            Self::AlphanumericId(id) => state.write(id.as_bytes()),
+            Self::Int(id) => state.write_u32(*id),
+            Self::Uuid(id) => state.write(id.as_bytes().as_slice()),
         }
     }
 }
