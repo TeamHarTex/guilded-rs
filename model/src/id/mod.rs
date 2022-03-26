@@ -62,6 +62,12 @@ impl<'de, M> Deserialize<'de> for Id<M> {
     }
 }
 
+impl<M> Hash for Id<M> {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.value.hash(state)
+    }
+}
+
 impl<M> Serialize for Id<M> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where

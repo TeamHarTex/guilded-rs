@@ -5,6 +5,8 @@ use serde::{Deserialize, Serialize};
 use crate::datetime::Timestamp;
 use crate::id::{marker::UserMarker, Id};
 
+pub mod partial;
+
 /// Represents a user.
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]

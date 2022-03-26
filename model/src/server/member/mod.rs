@@ -1,10 +1,12 @@
-//! The member object.
+//! The server member object.
 
 use serde::{Deserialize, Serialize};
 
 use crate::datetime::Timestamp;
 use crate::id::{marker::RoleMarker, Id};
 use crate::user::User;
+
+pub mod ban;
 
 /// Represents a server member.
 #[derive(Clone, Debug, Deserialize, Serialize)]
