@@ -1,5 +1,7 @@
 //! The partial user object.
 
+use serde::{Deserialize, Serialize};
+
 use super::UserType;
 use crate::id::{marker::UserMarker, Id};
 

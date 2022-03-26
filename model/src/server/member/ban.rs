@@ -1,5 +1,7 @@
 //! The server member ban object.
 
+use serde::{Deserialize, Serialize};
+
 use crate::datetime::Timestamp;
 use crate::id::{marker::UserMarker, Id};
 use crate::user::partial::PartialUser;
