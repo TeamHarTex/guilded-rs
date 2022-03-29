@@ -2,12 +2,10 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::{
-    datetime::Timestamp,
-    id::{
-        marker::{ChannelMarker, MessageMarker, ServerMarker, UserMarker, WebhookMarker},
-        Id,
-    },
+use crate::datetime::Timestamp;
+use crate::id::{
+    marker::{ChannelMarker, MessageMarker, ServerMarker, UserMarker, WebhookMarker},
+    Id,
 };
 
 /// Represents a chat message.

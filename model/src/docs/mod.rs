@@ -2,12 +2,10 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::{
-    datetime::Timestamp,
-    id::{
-        marker::{ChannelMarker, DocumentMarker, ServerMarker, UserMarker},
-        Id,
-    },
+use crate::datetime::Timestamp;
+use crate::id::{
+    marker::{ChannelMarker, DocumentMarker, ServerMarker, UserMarker},
+    Id,
 };
 
 /// Represents a forum thread.

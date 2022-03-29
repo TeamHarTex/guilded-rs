@@ -2,12 +2,10 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::{
-    datetime::Timestamp,
-    id::{
-        marker::{ChannelMarker, ListItemMarker, ServerMarker, UserMarker, WebhookMarker},
-        Id,
-    },
+use crate::datetime::Timestamp;
+use crate::id::{
+    marker::{ChannelMarker, ListItemMarker, ServerMarker, UserMarker, WebhookMarker},
+    Id,
 };
 
 /// Represents a list item.
@@ -15,12 +13,15 @@ use crate::{
 #[serde(rename_all = "camelCase")]
 pub struct ListItem {
     channel_id: Id<ChannelMarker>,
+    completed_at: Option<Timestamp>,
+    completed_by: Option<Id<UserMarker>>,
     created_at: Timestamp,
     created_by: Id<UserMarker>,
     created_by_webhook_id: Option<Id<WebhookMarker>>,
     id: Id<ListItemMarker>,
     message: String,
     note: Option<String>,
+    parent_list_item_id: Id<ListItemMarker>,
     server_id: Id<ServerMarker>,
     updated_at: Option<Timestamp>,
     updated_by: Option<Id<UserMarker>>,
@@ -29,6 +30,14 @@ pub struct ListItem {
 impl ListItem {
     pub fn channel_id(&self) -> Id<ChannelMarker> {
         self.channel_id.clone()
+    }
+
+    pub fn completed_at(&self) -> Option<Timestamp> {
+        self.completed_at
+    }
+
+    pub fn completed_by(&self) -> Option<Id<UserMarker>> {
+        self.completed_by.clone()
     }
 
     pub fn created_at(&self) -> Timestamp {
@@ -53,6 +62,10 @@ impl ListItem {
 
     pub fn note(&self) -> Option<String> {
         self.note.clone()
+    }
+
+    pub fn parent_list_item_id(&self) -> Id<ListItemMarker> {
+        self.parent_list_item_id.clone()
     }
 
     pub fn server_id(&self) -> Id<ServerMarker> {

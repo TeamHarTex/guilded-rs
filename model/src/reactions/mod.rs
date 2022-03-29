@@ -2,12 +2,10 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::{
-    datetime::Timestamp,
-    id::{
-        marker::{ReactionMarker, ServerMarker, UserMarker, WebhookMarker},
-        Id,
-    },
+use crate::datetime::Timestamp;
+use crate::id::{
+    marker::{ReactionMarker, ServerMarker, UserMarker, WebhookMarker},
+    Id,
 };
 
 /// Represents a reaction object.
