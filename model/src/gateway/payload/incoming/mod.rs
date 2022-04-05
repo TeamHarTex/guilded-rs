@@ -4,3 +4,5 @@ pub mod chat_message_updated;
 pub mod server_member_joined;
 pub mod server_member_removed;
 pub mod server_member_updated;
+pub mod server_webhook_created;
+pub mod server_webhook_updated;
