@@ -11,3 +11,13 @@ pub struct ChatMessageDeleted {
     message: DeletedChatMessage,
     server_id: Id<ServerMarker>,
 }
+
+impl ChatMessageDeleted {
+    pub fn message(&self) -> DeletedChatMessage {
+        self.message.clone()
+    }
+
+    pub fn server_id(&self) -> Id<ServerMarker> {
+        self.server_id.clone()
+    }
+}

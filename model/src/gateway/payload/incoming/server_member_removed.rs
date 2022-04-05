@@ -15,3 +15,21 @@ pub struct ServerMemberRemoved {
     server_id: Id<ServerMarker>,
     user_id: Id<UserMarker>,
 }
+
+impl ServerMemberRemoved {
+    pub fn is_ban(&self) -> bool {
+        self.is_ban
+    }
+
+    pub fn is_kick(&self) -> bool {
+        self.is_kick
+    }
+
+    pub fn server_id(&self) -> Id<ServerMarker> {
+        self.server_id.clone()
+    }
+
+    pub fn user_id(&self) -> Id<UserMarker> {
+        self.user_id.clone()
+    }
+}

@@ -11,3 +11,13 @@ pub struct ServerMemberJoined {
     member: ServerMember,
     server_id: Id<ServerMarker>,
 }
+
+impl ServerMemberJoined {
+    pub fn member(&self) -> ServerMember {
+        self.member.clone()
+    }
+
+    pub fn server_id(&self) -> Id<ServerMarker> {
+        self.server_id.clone()
+    }
+}

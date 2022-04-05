@@ -11,3 +11,13 @@ pub struct ChatMessageUpdated {
     message: ChatMessage,
     server_id: Id<ServerMarker>,
 }
+
+impl ChatMessageUpdated {
+    pub fn message(&self) -> ChatMessage {
+        self.message.clone()
+    }
+
+    pub fn server_id(&self) -> Id<ServerMarker> {
+        self.server_id.clone()
+    }
+}
