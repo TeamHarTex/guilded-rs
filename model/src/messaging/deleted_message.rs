@@ -1,5 +1,7 @@
 //! Deleted messages.
 
+use serde::{Deserialize, Serialize};
+
 use crate::datetime::Timestamp;
 use crate::id::{
     marker::{ChannelMarker, MessageMarker, ServerMarker},
