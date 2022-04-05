@@ -21,4 +21,3 @@ impl ServerWebhookUpdated {
         self.webhook.clone()
     }
 }
-

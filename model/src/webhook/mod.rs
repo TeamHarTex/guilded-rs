@@ -3,7 +3,10 @@
 use serde::{Deserialize, Serialize};
 
 use crate::datetime::Timestamp;
-use crate::id::{marker::{ChannelMarker, ServerMarker, UserMarker, WebhookMarker}, Id};
+use crate::id::{
+    marker::{ChannelMarker, ServerMarker, UserMarker, WebhookMarker},
+    Id,
+};
 
 /// Represents a webhook object.
 #[derive(Clone, Debug, Deserialize, Serialize)]
