@@ -11,14 +11,14 @@ pub mod ban;
 /// Represents a server member.
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Member {
+pub struct ServerMember {
     user: User,
     role_ids: Vec<Id<RoleMarker>>,
     nickname: Option<String>,
     joined_at: Timestamp,
 }
 
-impl Member {
+impl ServerMember {
     pub fn user(&self) -> User {
         self.user.clone()
     }

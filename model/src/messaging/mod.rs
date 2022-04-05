@@ -8,6 +8,8 @@ use crate::id::{
     Id,
 };
 
+pub mod deleted_message;
+
 /// Represents a chat message.
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]

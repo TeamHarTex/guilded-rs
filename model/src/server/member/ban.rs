@@ -9,14 +9,14 @@ use crate::user::partial::PartialUser;
 /// Represents a server member ban object.
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct MemberBan {
+pub struct ServerMemberBan {
     user: PartialUser,
     reason: Option<String>,
     created_at: Timestamp,
     created_by: Id<UserMarker>,
 }
 
-impl MemberBan {
+impl ServerMemberBan {
     pub fn user(&self) -> PartialUser {
         self.user.clone()
     }

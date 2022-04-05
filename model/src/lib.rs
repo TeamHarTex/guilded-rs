@@ -5,6 +5,7 @@
 pub mod datetime;
 pub mod docs;
 pub mod forum;
+pub mod gateway;
 pub mod id;
 pub mod list;
 pub mod messaging;
