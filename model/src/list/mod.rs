@@ -8,6 +8,8 @@ use crate::id::{
     Id,
 };
 
+pub mod note;
+
 /// Represents a list item.
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -20,7 +22,7 @@ pub struct ListItem {
     created_by_webhook_id: Option<Id<WebhookMarker>>,
     id: Id<ListItemMarker>,
     message: String,
-    note: Option<String>,
+    note: Option<note::ListItemNote>,
     parent_list_item_id: Id<ListItemMarker>,
     server_id: Id<ServerMarker>,
     updated_at: Option<Timestamp>,
@@ -60,7 +62,7 @@ impl ListItem {
         self.message.clone()
     }
 
-    pub fn note(&self) -> Option<String> {
+    pub fn note(&self) -> Option<note::ListItemNote> {
         self.note.clone()
     }
 
