@@ -1,6 +1,6 @@
 //! # guilded_model
 //!
-//! `guilded_model` is a crate of models for the Guilded API.
+//! Guilded API models for the Guilded-rs ecosystem of crates.
 
 pub mod datetime;
 pub mod document;
