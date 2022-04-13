@@ -11,3 +11,14 @@ rust-version = "1.57.0"
 version = "0.1.0-dev"
 
 [dependencies]
+hyper = { default-features = false, features = [ "client", "http1", "http2", "runtime" ], version = "0.14.18" }
+hyper-rustls = { default-features = false, optional = true, features = [ "http1", "http2" ], version = "0.23.0" }
+hyper-tls = { default-features = false, optional = true, version = "0.5.0" }
+hyper-trust-dns = { default-features = false, optional = true, version = "0.3.1" }
+
+[features]
+default = [ "rustls-native-roots" ]
+native = [ "hyper-tls" ]
+rustls-native-roots = [ "hyper-rustls/native-tokio" ]
+rustls-webpki-roots = [ "hyper-rustls/webpki-tokio" ]
+trust-dns = [ "hyper-trust-dns" ]

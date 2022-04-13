@@ -2,6 +2,11 @@
 
 use std::time::Duration;
 
+use hyper::client::Client as Hyper;
+
+use crate::client::connector;
+use crate::client::Client;
+
 /// A builder for a `Client`.
 #[derive(Debug)]
 pub struct ClientBuilder {
@@ -12,6 +17,17 @@ pub struct ClientBuilder {
 impl ClientBuilder {
     pub fn new() -> Self {
         Self::default()
+    }
+
+    pub fn build(self) -> Client {
+        let connector = connector::build();
+        let http = Hyper::builder().build(connector);
+
+        Client {
+            http,
+            timeout: self.timeout,
+            token: self.token,
+        }
     }
 
     /// Sets the timeout threshold.
