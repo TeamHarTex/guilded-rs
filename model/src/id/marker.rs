@@ -51,6 +51,9 @@ pub struct UserMarker;
 #[non_exhaustive]
 pub struct ReactionMarker;
 
+/// A marker for role IDs.
+///
+/// Reaction IDs on Guilded are unique numerical IDs (for example, `123456`).
 #[derive(Clone, Copy, Debug)]
 #[non_exhaustive]
 pub struct RoleMarker;
