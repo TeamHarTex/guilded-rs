@@ -24,7 +24,7 @@ impl Display for TimestampDisplay {
         let month = self.0 .0.month() as u8;
         Display::fmt(&(month / 10), f)?;
         Display::fmt(&(month % 10), f)?;
-        f.write_str("-");
+        f.write_str("-")?;
 
         let day = self.0 .0.day();
         Display::fmt(&(day / 10), f)?;
