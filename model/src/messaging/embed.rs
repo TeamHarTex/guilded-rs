@@ -4,6 +4,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::datetime::Timestamp;
 
+#[allow(clippy::module_name_repetitions)]
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ChatMessageEmbed {
@@ -14,7 +15,7 @@ pub struct ChatMessageEmbed {
     footer: Option<ChatMessageEmbedFooter>,
     image: Option<ChatMessageEmbedImage>,
     thumbnail: Option<ChatMessageEmbedThumbnail>,
-    timestamp: Option<Timestamp>,  // FIXME: should belong in footer object
+    timestamp: Option<Timestamp>, // FIXME: should belong in footer object
     title: Option<String>,
     url: Option<String>,
 }
