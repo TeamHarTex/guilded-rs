@@ -1,6 +1,17 @@
 pub mod chat_message_created;
 pub mod chat_message_deleted;
 pub mod chat_message_updated;
+pub mod document_created;
+pub mod document_deleted;
+pub mod document_updated;
+pub mod list_item_completed;
+pub mod list_item_created;
+pub mod list_item_deleted;
+pub mod list_item_uncompleted;
+pub mod list_item_updated;
+pub mod server_channel_created;
+pub mod server_channel_deleted;
+pub mod server_channel_updated;
 pub mod server_member_banned;
 pub mod server_member_joined;
 pub mod server_member_removed;

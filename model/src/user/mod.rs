@@ -11,27 +11,37 @@ pub mod partial;
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct User {
-    id: Id<UserMarker>,
-    r#type: UserType,
-    name: String,
+    avatar: Option<String>,
+    banner: Option<String>,
     created_at: Timestamp,
+    id: Id<UserMarker>,
+    name: String,
+    r#type: UserType,
 }
 
 impl User {
-    pub fn id(&self) -> Id<UserMarker> {
-        self.id.clone()
+    pub fn avatar(&self) -> Option<&str> {
+        self.avatar.as_deref()
     }
 
-    pub fn r#type(&self) -> UserType {
-        self.r#type.clone()
+    pub fn banner(&self) -> Option<&str> {
+        self.banner.as_deref()
+    }
+
+    pub fn created_at(&self) -> Timestamp {
+        self.created_at
     }
 
     pub fn name(&self) -> &str {
         self.name.as_ref()
     }
 
-    pub fn created_at(&self) -> Timestamp {
-        self.created_at
+    pub fn id(&self) -> Id<UserMarker> {
+        self.id.clone()
+    }
+
+    pub fn r#type(&self) -> UserType {
+        self.r#type.clone()
     }
 }
 

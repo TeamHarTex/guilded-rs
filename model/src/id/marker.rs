@@ -2,6 +2,13 @@
 //!
 //! These markers perform no logical action themselves, instead they are used for type-checking.
 
+/// A marker for category IDs.
+///
+/// Category IDs on Guilded are unique numerical IDs (for example, `123456`).
+#[derive(Clone, Copy, Debug)]
+#[non_exhaustive]
+pub struct CategoryMarker;
+
 /// A marker for channel IDs.
 ///
 /// Channel IDs on Guilded are unique UUIDs (for example, `00000000-0000-0000-0000-000000000000`).
@@ -22,6 +29,13 @@ pub struct DocumentMarker;
 #[derive(Clone, Copy, Debug)]
 #[non_exhaustive]
 pub struct ForumThreadMarker;
+
+/// A marker for group IDs.
+///
+/// Group IDs on Guilded are unique 8-character IDs (for example, `Ann6LewA`).
+#[derive(Clone, Copy, Debug)]
+#[non_exhaustive]
+pub struct GroupMarker;
 
 /// A marker for list item IDs.
 ///

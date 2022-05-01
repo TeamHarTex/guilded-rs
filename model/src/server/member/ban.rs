@@ -10,26 +10,26 @@ use crate::user::partial::PartialUser;
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ServerMemberBan {
-    user: PartialUser,
-    reason: Option<String>,
     created_at: Timestamp,
     created_by: Id<UserMarker>,
+    reason: Option<String>,
+    user: PartialUser,
 }
 
 impl ServerMemberBan {
-    pub fn user(&self) -> PartialUser {
-        self.user.clone()
-    }
-
-    pub fn reason(&self) -> Option<&str> {
-        self.reason.as_deref()
-    }
-
     pub fn created_at(&self) -> Timestamp {
         self.created_at
     }
 
     pub fn created_by(&self) -> Id<UserMarker> {
         self.created_by.clone()
+    }
+
+    pub fn reason(&self) -> Option<&str> {
+        self.reason.as_deref()
+    }
+
+    pub fn user(&self) -> PartialUser {
+        self.user.clone()
     }
 }

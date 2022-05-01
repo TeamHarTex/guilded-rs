@@ -2,6 +2,7 @@
 //!
 //! Guilded API models for the Guilded-rs ecosystem of crates.
 
+pub mod channel;
 pub mod datetime;
 pub mod document;
 pub mod forum;

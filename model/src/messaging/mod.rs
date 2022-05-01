@@ -19,7 +19,7 @@ pub struct ChatMessage {
     created_at: Timestamp,
     created_by: Id<UserMarker>,
     created_by_webhook_id: Option<Id<WebhookMarker>>,
-    embeds: Option<Vec<embed::ChatMessageEmbed>>,
+    embeds: Option<Vec<embed::ChatEmbed>>,
     id: Id<MessageMarker>,
     is_private: Option<bool>,
     reply_message_ids: Option<Vec<Id<MessageMarker>>>,
@@ -49,7 +49,7 @@ impl ChatMessage {
         self.created_by_webhook_id.clone()
     }
 
-    pub fn embeds(&self) -> Option<Vec<embed::ChatMessageEmbed>> {
+    pub fn embeds(&self) -> Option<Vec<embed::ChatEmbed>> {
         self.embeds.clone()
     }
 

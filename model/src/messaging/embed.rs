@@ -7,21 +7,21 @@ use crate::datetime::Timestamp;
 #[allow(clippy::module_name_repetitions)]
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct ChatMessageEmbed {
-    author: Option<ChatMessageEmbedAuthor>,
+pub struct ChatEmbed {
+    author: Option<ChatEmbedAuthor>,
     color: Option<u32>,
     description: Option<String>,
-    fields: Option<Vec<ChatMessageEmbedField>>,
-    footer: Option<ChatMessageEmbedFooter>,
-    image: Option<ChatMessageEmbedImage>,
-    thumbnail: Option<ChatMessageEmbedThumbnail>,
-    timestamp: Option<Timestamp>, // FIXME: should belong in footer object
+    fields: Option<Vec<ChatEmbedField>>,
+    footer: Option<ChatEmbedFooter>,
+    image: Option<ChatEmbedImage>,
+    thumbnail: Option<ChatEmbedThumbnail>,
+    timestamp: Option<Timestamp>,
     title: Option<String>,
     url: Option<String>,
 }
 
-impl ChatMessageEmbed {
-    pub fn author(&self) -> Option<ChatMessageEmbedAuthor> {
+impl ChatEmbed {
+    pub fn author(&self) -> Option<ChatEmbedAuthor> {
         self.author.clone()
     }
 
@@ -33,19 +33,19 @@ impl ChatMessageEmbed {
         self.description.as_deref()
     }
 
-    pub fn fields(&self) -> Option<Vec<ChatMessageEmbedField>> {
+    pub fn fields(&self) -> Option<Vec<ChatEmbedField>> {
         self.fields.clone()
     }
 
-    pub fn footer(&self) -> Option<ChatMessageEmbedFooter> {
+    pub fn footer(&self) -> Option<ChatEmbedFooter> {
         self.footer.clone()
     }
 
-    pub fn image(&self) -> Option<ChatMessageEmbedImage> {
+    pub fn image(&self) -> Option<ChatEmbedImage> {
         self.image.clone()
     }
 
-    pub fn thumbnail(&self) -> Option<ChatMessageEmbedThumbnail> {
+    pub fn thumbnail(&self) -> Option<ChatEmbedThumbnail> {
         self.thumbnail.clone()
     }
 
@@ -64,13 +64,13 @@ impl ChatMessageEmbed {
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct ChatMessageEmbedAuthor {
+pub struct ChatEmbedAuthor {
     icon_url: Option<String>,
     name: Option<String>,
     url: Option<String>,
 }
 
-impl ChatMessageEmbedAuthor {
+impl ChatEmbedAuthor {
     pub fn icon_url(&self) -> Option<&str> {
         self.icon_url.as_deref()
     }
@@ -86,13 +86,13 @@ impl ChatMessageEmbedAuthor {
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct ChatMessageEmbedField {
+pub struct ChatEmbedField {
     inline: Option<bool>,
     name: String,
     value: String,
 }
 
-impl ChatMessageEmbedField {
+impl ChatEmbedField {
     pub fn inline(&self) -> Option<bool> {
         self.inline
     }
@@ -108,12 +108,12 @@ impl ChatMessageEmbedField {
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct ChatMessageEmbedFooter {
+pub struct ChatEmbedFooter {
     icon_url: Option<String>,
     text: String,
 }
 
-impl ChatMessageEmbedFooter {
+impl ChatEmbedFooter {
     pub fn icon_url(&self) -> Option<&str> {
         self.icon_url.as_deref()
     }
@@ -125,11 +125,11 @@ impl ChatMessageEmbedFooter {
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct ChatMessageEmbedImage {
+pub struct ChatEmbedImage {
     url: Option<String>,
 }
 
-impl ChatMessageEmbedImage {
+impl ChatEmbedImage {
     pub fn url(&self) -> Option<&str> {
         self.url.as_deref()
     }
@@ -137,11 +137,11 @@ impl ChatMessageEmbedImage {
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct ChatMessageEmbedThumbnail {
+pub struct ChatEmbedThumbnail {
     url: Option<String>,
 }
 
-impl ChatMessageEmbedThumbnail {
+impl ChatEmbedThumbnail {
     pub fn url(&self) -> Option<&str> {
         self.url.as_deref()
     }
