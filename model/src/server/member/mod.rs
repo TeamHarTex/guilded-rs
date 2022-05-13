@@ -12,6 +12,7 @@ pub mod ban;
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ServerMember {
+    is_owner: Option<bool>,
     joined_at: Timestamp,
     nickname: Option<String>,
     role_ids: Vec<Id<RoleMarker>>,
@@ -19,6 +20,10 @@ pub struct ServerMember {
 }
 
 impl ServerMember {
+    pub fn is_owner(&self) -> Option<bool> {
+        self.is_owner
+    }
+
     pub fn joined_at(&self) -> Timestamp {
         self.joined_at
     }

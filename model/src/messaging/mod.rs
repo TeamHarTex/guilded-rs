@@ -22,6 +22,7 @@ pub struct ChatMessage {
     embeds: Option<Vec<embed::ChatEmbed>>,
     id: Id<MessageMarker>,
     is_private: Option<bool>,
+    is_silent: Option<bool>,
     reply_message_ids: Option<Vec<Id<MessageMarker>>>,
     server_id: Id<ServerMarker>,
     r#type: ChatMessageType,
@@ -59,6 +60,10 @@ impl ChatMessage {
 
     pub fn is_private(&self) -> Option<bool> {
         self.is_private
+    }
+
+    pub fn is_silent(&self) -> Option<bool> {
+        self.is_silent
     }
 
     pub fn reply_message_ids(&self) -> Option<Vec<Id<MessageMarker>>> {
