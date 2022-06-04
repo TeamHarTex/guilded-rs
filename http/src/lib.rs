@@ -3,4 +3,5 @@
 //! Guilded API HTTP Client for the Guilded-rs ecosystem of crates.
 
 pub mod client;
+pub mod request;
 pub mod route;

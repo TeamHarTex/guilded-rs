@@ -2,6 +2,8 @@
 
 use guilded_model::datetime::Timestamp;
 
+use crate::request::Method;
+
 pub enum Route<'a> {
     ChannelMessageCreate {
         channel_id: &'a str,
@@ -24,6 +26,16 @@ pub enum Route<'a> {
     ChannelMessageUpdate {
         channel_id: &'a str,
         message_id: &'a str,
+    },
+    ChannelCreate,
+    ChannelDelete {
+        channel_id: &'a str,
+    },
+    ChannelRead {
+        channel_id: &'a str,
+    },
+    ChannelUpdate {
+        channel_id: &'a str,
     },
     ContentReactionCreate {
         channel_id: &'a str,
@@ -58,6 +70,14 @@ pub enum Route<'a> {
     GroupMembershipDelete {
         group_id: &'a str,
         user_id: &'a str,
+    },
+    ListItemCompleteCreate {
+        channel_id: &'a str,
+        list_item_id: &'a str,
+    },
+    ListItemCompleteDelete {
+        channel_id: &'a str,
+        list_item_id: &'a str,
     },
     ListItemCreate {
         channel_id: &'a str,
@@ -130,6 +150,9 @@ pub enum Route<'a> {
     ServerMemberReadMany {
         server_id: &'a str,
     },
+    ServerRead {
+        server_id: &'a str,
+    },
     ServerXpForRoleCreate {
         server_id: &'a str,
         role_id: u32,
@@ -157,4 +180,57 @@ pub enum Route<'a> {
         server_id: &'a str,
         webhook_id: &'a str,
     },
+}
+
+impl<'a> Route<'a> {
+    pub fn method(&self) -> Method {
+        match self {
+            Self::ChannelMessageRead { .. }
+            | Self::ChannelRead { .. }
+            | Self::ChannelMessageReadMany { .. }
+            | Self::DocRead { .. }
+            | Self::DocReadMany { .. }
+            | Self::ListItemRead { .. }
+            | Self::ListItemReadMany { .. }
+            | Self::MemberSocialLinkRead { .. }
+            | Self::RoleMembershipReadMany { .. }
+            | Self::ServerMemberBanRead { .. }
+            | Self::ServerMemberBanReadMany { .. }
+            | Self::ServerMemberRead { .. }
+            | Self::ServerMemberReadMany { .. }
+            | Self::ServerRead { .. }
+            | Self::WebhookRead { .. }
+            | Self::WebhookReadMany { .. } => Method::Get,
+            Self::ChannelDelete { .. }
+            | Self::ChannelMessageDelete { .. }
+            | Self::DocDelete { .. }
+            | Self::GroupMembershipDelete { .. }
+            | Self::ListItemCompleteDelete { .. }
+            | Self::ListItemDelete { .. }
+            | Self::MemberNicknameDelete { .. }
+            | Self::RoleMembershipDelete { .. }
+            | Self::ServerMemberDelete { .. }
+            | Self::ServerMemberBanDelete { .. }
+            | Self::WebhookDelete { .. } => Method::Delete,
+            Self::ChannelUpdate { .. } => Method::Patch,
+            Self::ChannelCreate
+            | Self::ChannelMessageCreate { .. }
+            | Self::ContentReactionCreate { .. }
+            | Self::DocCreate { .. }
+            | Self::ForumThreadCreate { .. }
+            | Self::GroupMembershipCreate { .. }
+            | Self::ListItemCreate { .. }
+            | Self::ListItemCompleteCreate { .. }
+            | Self::RoleMembershipCreate { .. }
+            | Self::ServerMemberBanCreate { .. }
+            | Self::ServerXpForRoleCreate { .. }
+            | Self::ServerXpForUserCreate { .. }
+            | Self::WebhookCreate { .. } => Method::Post,
+            Self::ChannelMessageUpdate { .. }
+            | Self::DocUpdate { .. }
+            | Self::ListItemUpdate { .. }
+            | Self::MemberNicknameUpdate { .. }
+            | Self::WebhookUpdate { .. } => Method::Put,
+        }
+    }
 }
