@@ -2,6 +2,7 @@
 
 use serde::{Deserialize, Serialize};
 
+use crate::channel::mentions::Mentions;
 use crate::datetime::Timestamp;
 use crate::id::{
     marker::{ChannelMarker, MessageMarker, ServerMarker, UserMarker, WebhookMarker},
@@ -23,6 +24,7 @@ pub struct ChatMessage {
     id: Id<MessageMarker>,
     is_private: Option<bool>,
     is_silent: Option<bool>,
+    mentions: Mentions,
     reply_message_ids: Option<Vec<Id<MessageMarker>>>,
     server_id: Id<ServerMarker>,
     r#type: ChatMessageType,
@@ -75,7 +77,7 @@ impl ChatMessage {
     }
 
     pub fn r#type(&self) -> ChatMessageType {
-        self.r#type.clone()
+        self.r#type
     }
 
     pub fn updated_at(&self) -> Option<Timestamp> {
@@ -84,7 +86,7 @@ impl ChatMessage {
 }
 
 /// Represents the type of a chat message.
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Clone, Copy, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "lowercase")]
 pub enum ChatMessageType {
     /// A message sent by a user or a bot.

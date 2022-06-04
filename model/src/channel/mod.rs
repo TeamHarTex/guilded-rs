@@ -8,6 +8,8 @@ use crate::id::{
     Id,
 };
 
+pub mod mentions;
+
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ServerChannel {

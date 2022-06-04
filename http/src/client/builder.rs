@@ -10,8 +10,8 @@ use crate::client::Client;
 /// A builder for a `Client`.
 #[derive(Debug)]
 pub struct ClientBuilder {
-    pub(in crate) timeout: Duration,
-    pub(in crate) token: Option<Box<str>>,
+    pub(crate) timeout: Duration,
+    pub(crate) token: Option<Box<str>>,
 }
 
 impl ClientBuilder {

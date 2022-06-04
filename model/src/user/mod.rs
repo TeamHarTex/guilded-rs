@@ -41,12 +41,12 @@ impl User {
     }
 
     pub fn r#type(&self) -> UserType {
-        self.r#type.clone()
+        self.r#type
     }
 }
 
 /// Represents the type of a user.
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Clone, Copy, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "lowercase")]
 pub enum UserType {
     Bot,
