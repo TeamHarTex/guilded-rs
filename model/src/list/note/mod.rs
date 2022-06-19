@@ -1,8 +1,8 @@
 //! The list item note.
 
-use crate::channel::mentions::Mentions;
 use serde::{Deserialize, Serialize};
 
+use crate::channel::mentions::Mentions;
 use crate::datetime::Timestamp;
 use crate::id::{marker::UserMarker, Id};
 

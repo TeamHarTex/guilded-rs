@@ -1,3 +1,5 @@
+use serde::{Deserialize, Serialize};
+
 use crate::datetime::Timestamp;
 use crate::id::{marker::UserMarker, Id};
 
