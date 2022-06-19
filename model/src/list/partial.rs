@@ -85,4 +85,3 @@ impl PartialListItem {
         self.updated_by.clone()
     }
 }
-

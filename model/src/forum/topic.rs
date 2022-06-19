@@ -11,7 +11,7 @@ use crate::id::{
 /// Represents a forum topic.
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-    pub struct ForumTopic {
+pub struct ForumTopic {
     channel_id: Id<ChannelMarker>,
     content: Option<String>,
     created_at: Timestamp,
