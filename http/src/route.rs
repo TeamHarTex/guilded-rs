@@ -1,5 +1,7 @@
 //! HTTP Routes of the Guilded API.
 
+use std::fmt::{Display, Formatter, Result as FmtResult, Write};
+
 use guilded_model::datetime::Timestamp;
 
 use crate::request::Method;
@@ -17,11 +19,11 @@ pub enum Route<'a> {
         message_id: &'a str,
     },
     ChannelMessageReadMany {
-        channel_id: &'a str,
-        before: Option<Timestamp>,
         after: Option<Timestamp>,
-        limit: Option<u64>,
+        before: Option<Timestamp>,
+        channel_id: &'a str,
         include_private: Option<bool>,
+        limit: Option<u64>,
     },
     ChannelMessageUpdate {
         channel_id: &'a str,
@@ -60,7 +62,7 @@ pub enum Route<'a> {
         channel_id: &'a str,
         doc_id: u32,
     },
-    ForumThreadCreate {
+    ForumTopicCreate {
         channel_id: &'a str,
     },
     GroupMembershipCreate {
@@ -107,18 +109,18 @@ pub enum Route<'a> {
     },
     MemberSocialLinkRead {
         server_id: &'a str,
-        user_id: &'a str,
         r#type: &'a str,
+        user_id: &'a str,
     },
     RoleMembershipCreate {
+        role_id: u32,
         server_id: &'a str,
         user_id: &'a str,
-        role_id: u32,
     },
     RoleMembershipDelete {
+        role_id: u32,
         server_id: &'a str,
         user_id: &'a str,
-        role_id: u32,
     },
     RoleMembershipReadMany {
         server_id: &'a str,
@@ -173,8 +175,8 @@ pub enum Route<'a> {
         webhook_id: &'a str,
     },
     WebhookReadMany {
-        server_id: &'a str,
         channel_id: &'a str,
+        server_id: &'a str,
     },
     WebhookUpdate {
         server_id: &'a str,
@@ -217,7 +219,7 @@ impl<'a> Route<'a> {
             | Self::ChannelMessageCreate { .. }
             | Self::ContentReactionCreate { .. }
             | Self::DocCreate { .. }
-            | Self::ForumThreadCreate { .. }
+            | Self::ForumTopicCreate { .. }
             | Self::GroupMembershipCreate { .. }
             | Self::ListItemCreate { .. }
             | Self::ListItemCompleteCreate { .. }
@@ -231,6 +233,91 @@ impl<'a> Route<'a> {
             | Self::ListItemUpdate { .. }
             | Self::MemberNicknameUpdate { .. }
             | Self::WebhookUpdate { .. } => Method::Put,
+        }
+    }
+}
+
+impl Display for Route<'_> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
+        match self {
+            Self::ChannelMessageCreate { channel_id } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+
+                f.write_str("/messages")
+            }
+            Self::ChannelMessageDelete {
+                channel_id,
+                message_id,
+            }
+            | Self::ChannelMessageRead {
+                channel_id,
+                message_id,
+            }
+            | Self::ChannelMessageUpdate {
+                channel_id,
+                message_id,
+            } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+                f.write_str("/messages/")?;
+
+                Display::fmt(message_id, f)
+            }
+            Self::ChannelMessageReadMany {
+                after,
+                before,
+                channel_id,
+                include_private,
+                limit,
+            } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+                f.write_str("/messages?")?;
+
+                if let Some(after) = after {
+                    f.write_str("after=")?;
+                    Display::fmt(after, f)?;
+                }
+
+                if let Some(before) = before {
+                    f.write_str("&before=")?;
+                    Display::fmt(before, f)?;
+                }
+
+                if let Some(include_private) = include_private {
+                    f.write_str("&includePrivate=")?;
+                    Display::fmt(include_private, f)?;
+                }
+
+                if let Some(limit) = limit {
+                    f.write_str("&limit=")?;
+                    Display::fmt(limit, f)?;
+                }
+
+                Ok(())
+            }
+            Self::MemberNicknameDelete { server_id, user_id }
+            | Self::MemberNicknameUpdate { server_id, user_id } => {
+                f.write_str("/servers")?;
+                Display::fmt(server_id, f)?;
+                f.write_str("/members")?;
+                Display::fmt(user_id, f)?;
+                f.write_str("/nickname")?
+            }
+            Self::ServerMemberDelete { server_id, user_id }
+            | Self::ServerMemberRead { server_id, user_id } => {
+                f.write_str("/servers")?;
+                Display::fmt(server_id, f)?;
+                f.write_str("/members")?;
+                Display::fmt(user_id, f)?
+            }
+            Self::ServerMemberReadMany { server_id } => {
+                f.write_str("/servers")?;
+                Display::fmt(server_id, f)?;
+                f.write_str("/members")?
+            }
+            _ => todo!(),
         }
     }
 }
