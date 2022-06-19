@@ -297,6 +297,33 @@ impl Display for Route<'_> {
 
                 Ok(())
             }
+            Self::ForumTopicCreate { channel_id } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id)?;
+                f.write_str("/topics")
+            }
+            Self::ListItemCreate { channel_id }
+            | Self::ListItemReadMany { channel_id } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+                f.write_str("/items")
+            }
+            Self::ListItemCompleteCreate { channel_id, list_item_id }
+            | Self::ListItemCompleteDelete { channel_id, list_item_id } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+                f.write_str("/items/")?;
+                Display::fmt(list_item_id)?;
+                f.write_str("/complete")
+            }
+            Self::ListItemDelete { channel_id, list_item_id }
+            | Self::ListItemRead { channel_id, list_item_id }
+            | Self::ListItemUpdate { channel_id, list_item_id } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+                f.write_str("/items/")?;
+                Display::fmt(list_item_id)
+            }
             Self::MemberNicknameDelete { server_id, user_id }
             | Self::MemberNicknameUpdate { server_id, user_id } => {
                 f.write_str("servers/")?;
