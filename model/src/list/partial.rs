@@ -1,21 +1,17 @@
-//! The list item object.
+//! The partial list item object.
 
-use serde::{Deserialize, Serialize};
 use crate::channel::mentions::Mentions;
-
 use crate::datetime::Timestamp;
 use crate::id::{
     marker::{ChannelMarker, ListItemMarker, ServerMarker, UserMarker, WebhookMarker},
     Id,
 };
-
-pub mod note;
-pub mod partial;
+use crate::list::note;
 
 /// Represents a list item.
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct ListItem {
+pub struct PartialListItem {
     channel_id: Id<ChannelMarker>,
     completed_at: Option<Timestamp>,
     completed_by: Option<Id<UserMarker>>,
@@ -25,14 +21,14 @@ pub struct ListItem {
     id: Id<ListItemMarker>,
     mentions: Option<Mentions>,
     message: String,
-    note: Option<note::ListItemNote>,
+    note: Option<note::partial::PartialListItemNote>,
     parent_list_item_id: Id<ListItemMarker>,
     server_id: Id<ServerMarker>,
     updated_at: Option<Timestamp>,
     updated_by: Option<Id<UserMarker>>,
 }
 
-impl ListItem {
+impl PartialListItem {
     pub fn channel_id(&self) -> Id<ChannelMarker> {
         self.channel_id.clone()
     }
@@ -69,7 +65,7 @@ impl ListItem {
         self.message.clone()
     }
 
-    pub fn note(&self) -> Option<note::ListItemNote> {
+    pub fn note(&self) -> Option<note::partial::PartialListItemNote> {
         self.note.clone()
     }
 
@@ -89,3 +85,4 @@ impl ListItem {
         self.updated_by.clone()
     }
 }
+

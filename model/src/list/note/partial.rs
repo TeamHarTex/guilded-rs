@@ -1,26 +1,17 @@
-//! The list item note.
-
-use serde::{Deserialize, Serialize};
-
 use crate::datetime::Timestamp;
 use crate::id::{marker::UserMarker, Id};
 
-/// Represents notes of a list item.
+/// Represents partial notes of a partial list item.
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct ListItemNote {
-    content: String,
+pub struct PartialListItemNote {
     created_at: Timestamp,
     created_by: Id<UserMarker>,
     updated_at: Option<Timestamp>,
     updated_by: Option<Id<UserMarker>>,
 }
 
-impl ListItemNote {
-    pub fn content(&self) -> &str {
-        self.content.as_ref()
-    }
-
+impl PartialListItemNote {
     pub fn created_at(&self) -> Timestamp {
         self.created_at
     }

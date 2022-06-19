@@ -1,4 +1,4 @@
-//! The forum thread object.
+//! The forum topic object.
 
 use serde::{Deserialize, Serialize};
 
@@ -8,10 +8,10 @@ use crate::id::{
     Id,
 };
 
-/// Represents a forum thread.
+/// Represents a forum topic.
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct ForumThread {
+    pub struct ForumTopic {
     channel_id: Id<ChannelMarker>,
     content: Option<String>,
     created_at: Timestamp,
@@ -23,7 +23,7 @@ pub struct ForumThread {
     updated_at: Option<Timestamp>,
 }
 
-impl ForumThread {
+impl ForumTopic {
     pub fn channel_id(&self) -> Id<ChannelMarker> {
         self.channel_id.clone()
     }
