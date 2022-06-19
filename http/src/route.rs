@@ -299,23 +299,36 @@ impl Display for Route<'_> {
             }
             Self::MemberNicknameDelete { server_id, user_id }
             | Self::MemberNicknameUpdate { server_id, user_id } => {
-                f.write_str("/servers")?;
+                f.write_str("servers/")?;
                 Display::fmt(server_id, f)?;
-                f.write_str("/members")?;
+                f.write_str("/members/")?;
                 Display::fmt(user_id, f)?;
-                f.write_str("/nickname")?
+                f.write_str("/nickname")
+            }
+            Self::ServerMemberBanCreate { server_id, user_id }
+            | Self::ServerMemberBanDelete { server_id, user_id }
+            | Self::ServerMemberBanRead { server_id, user_id } => {
+                f.write_str("servers/")?;
+                Display::fmt(server_id, f)?;
+                f.write_str("/bans/")?;
+                Display::fmt(user_id, f)
+            }
+            Self::ServerMemberBanReadMany { server_id } => {
+                f.write_str("servers/")?;
+                Display::fmt(server_id, f)?;
+                f.write_str("/bans")
             }
             Self::ServerMemberDelete { server_id, user_id }
             | Self::ServerMemberRead { server_id, user_id } => {
-                f.write_str("/servers")?;
+                f.write_str("servers/")?;
                 Display::fmt(server_id, f)?;
-                f.write_str("/members")?;
-                Display::fmt(user_id, f)?
+                f.write_str("/members/")?;
+                Display::fmt(user_id, f)
             }
             Self::ServerMemberReadMany { server_id } => {
-                f.write_str("/servers")?;
+                f.write_str("servers/")?;
                 Display::fmt(server_id, f)?;
-                f.write_str("/members")?
+                f.write_str("/members")
             }
             _ => todo!(),
         }
