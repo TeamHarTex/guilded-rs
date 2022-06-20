@@ -245,9 +245,7 @@ impl<'a> Route<'a> {
 impl Display for Route<'_> {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         match self {
-            Self::ChannelCreate => {
-                f.write_str("channels")
-            }
+            Self::ChannelCreate => f.write_str("channels"),
             Self::ChannelDelete { channel_id }
             | Self::ChannelRead { channel_id }
             | Self::ChannelUpdate { channel_id } => {
@@ -291,12 +289,12 @@ impl Display for Route<'_> {
 
                 if let Some(after) = after {
                     f.write_str("after=")?;
-                    Display::fmt(after, f)?;
+                    Display::fmt(&after.display(), f)?;
                 }
 
                 if let Some(before) = before {
                     f.write_str("&before=")?;
-                    Display::fmt(before, f)?;
+                    Display::fmt(&before.display(), f)?;
                 }
 
                 if let Some(include_private) = include_private {
@@ -311,8 +309,16 @@ impl Display for Route<'_> {
 
                 Ok(())
             }
-            Self::ContentReactionCreate { channel_id, content_id, emote_id }
-            | Self::ContentReactionDelete { channel_id, content_id, emote_id} => {
+            Self::ContentReactionCreate {
+                channel_id,
+                content_id,
+                emote_id,
+            }
+            | Self::ContentReactionDelete {
+                channel_id,
+                content_id,
+                emote_id,
+            } => {
                 f.write_str("channels/")?;
                 Display::fmt(channel_id, f)?;
                 f.write_str("/content/")?;
@@ -320,8 +326,7 @@ impl Display for Route<'_> {
                 f.write_str("/emotes/")?;
                 Display::fmt(emote_id, f)
             }
-            Self::DocCreate { channel_id }
-            | Self::DocReadMany { channel_id } => {
+            Self::DocCreate { channel_id } | Self::DocReadMany { channel_id } => {
                 f.write_str("channels/")?;
                 Display::fmt(channel_id, f)?;
                 f.write_str("/docs")
@@ -346,23 +351,37 @@ impl Display for Route<'_> {
                 f.write_str("/members/")?;
                 Display::fmt(user_id, f)
             }
-            Self::ListItemCreate { channel_id }
-            | Self::ListItemReadMany { channel_id } => {
+            Self::ListItemCreate { channel_id } | Self::ListItemReadMany { channel_id } => {
                 f.write_str("channels/")?;
                 Display::fmt(channel_id, f)?;
                 f.write_str("/items")
             }
-            Self::ListItemCompleteCreate { channel_id, list_item_id }
-            | Self::ListItemCompleteDelete { channel_id, list_item_id } => {
+            Self::ListItemCompleteCreate {
+                channel_id,
+                list_item_id,
+            }
+            | Self::ListItemCompleteDelete {
+                channel_id,
+                list_item_id,
+            } => {
                 f.write_str("channels/")?;
                 Display::fmt(channel_id, f)?;
                 f.write_str("/items/")?;
                 Display::fmt(list_item_id, f)?;
                 f.write_str("/complete")
             }
-            Self::ListItemDelete { channel_id, list_item_id }
-            | Self::ListItemRead { channel_id, list_item_id }
-            | Self::ListItemUpdate { channel_id, list_item_id } => {
+            Self::ListItemDelete {
+                channel_id,
+                list_item_id,
+            }
+            | Self::ListItemRead {
+                channel_id,
+                list_item_id,
+            }
+            | Self::ListItemUpdate {
+                channel_id,
+                list_item_id,
+            } => {
                 f.write_str("channels/")?;
                 Display::fmt(channel_id, f)?;
                 f.write_str("/items/")?;
@@ -376,7 +395,11 @@ impl Display for Route<'_> {
                 Display::fmt(user_id, f)?;
                 f.write_str("/nickname")
             }
-            Self::MemberSocialLinkRead { server_id, user_id, r#type } => {
+            Self::MemberSocialLinkRead {
+                server_id,
+                user_id,
+                r#type,
+            } => {
                 f.write_str("servers/")?;
                 Display::fmt(server_id, f)?;
                 f.write_str("/members/")?;
@@ -384,8 +407,16 @@ impl Display for Route<'_> {
                 f.write_str("/social-links/")?;
                 Display::fmt(r#type, f)
             }
-            Self::RoleMembershipCreate { role_id, server_id, user_id}
-            | Self::RoleMembershipDelete { role_id, server_id, user_id } => {
+            Self::RoleMembershipCreate {
+                role_id,
+                server_id,
+                user_id,
+            }
+            | Self::RoleMembershipDelete {
+                role_id,
+                server_id,
+                user_id,
+            } => {
                 f.write_str("servers/")?;
                 Display::fmt(server_id, f)?;
                 f.write_str("/members/")?;
@@ -443,15 +474,23 @@ impl Display for Route<'_> {
                 Display::fmt(user_id, f)?;
                 f.write_str("/xp")
             }
-            Self::WebhookCreate { server_id }
-            | Self::WebhookReadMany { server_id } => {
+            Self::WebhookCreate { server_id } | Self::WebhookReadMany { server_id } => {
                 f.write_str("servers/")?;
                 Display::fmt(server_id, f)?;
                 f.write_str("/webhooks")
             }
-            Self::WebhookDelete { server_id, webhook_id }
-            | Self::WebhookRead { server_id, webhook_id }
-            | Self::WebhookUpdate { server_id, webhook_id} => {
+            Self::WebhookDelete {
+                server_id,
+                webhook_id,
+            }
+            | Self::WebhookRead {
+                server_id,
+                webhook_id,
+            }
+            | Self::WebhookUpdate {
+                server_id,
+                webhook_id,
+            } => {
                 f.write_str("servers/")?;
                 Display::fmt(server_id, f)?;
                 f.write_str("/webhooks/")?;

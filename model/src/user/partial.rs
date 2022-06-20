@@ -29,6 +29,6 @@ impl PartialUser {
     }
 
     pub fn r#type(&self) -> UserType {
-        self.r#type.clone()
+        self.r#type
     }
 }
