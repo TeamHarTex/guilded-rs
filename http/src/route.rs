@@ -41,7 +41,12 @@ pub enum Route<'a> {
     },
     ContentReactionCreate {
         channel_id: &'a str,
-        content_id: String,
+        content_id: &'a str,
+        emote_id: u32,
+    },
+    ContentReactionDelete {
+        channel_id: &'a str,
+        content_id: &'a str,
         emote_id: u32,
     },
     DocCreate {
@@ -175,7 +180,6 @@ pub enum Route<'a> {
         webhook_id: &'a str,
     },
     WebhookReadMany {
-        channel_id: &'a str,
         server_id: &'a str,
     },
     WebhookUpdate {
@@ -205,6 +209,7 @@ impl<'a> Route<'a> {
             | Self::WebhookReadMany { .. } => Method::Get,
             Self::ChannelDelete { .. }
             | Self::ChannelMessageDelete { .. }
+            | Self::ContentReactionDelete { .. }
             | Self::DocDelete { .. }
             | Self::GroupMembershipDelete { .. }
             | Self::ListItemCompleteDelete { .. }
@@ -240,6 +245,15 @@ impl<'a> Route<'a> {
 impl Display for Route<'_> {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         match self {
+            Self::ChannelCreate => {
+                f.write_str("channels")
+            }
+            Self::ChannelDelete { channel_id }
+            | Self::ChannelRead { channel_id }
+            | Self::ChannelUpdate { channel_id } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)
+            }
             Self::ChannelMessageCreate { channel_id } => {
                 f.write_str("channels/")?;
                 Display::fmt(channel_id, f)?;
@@ -297,10 +311,40 @@ impl Display for Route<'_> {
 
                 Ok(())
             }
+            Self::ContentReactionCreate { channel_id, content_id, emote_id }
+            | Self::ContentReactionDelete { channel_id, content_id, emote_id} => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+                f.write_str("/content/")?;
+                Display::fmt(content_id, f)?;
+                f.write_str("/emotes/")?;
+                Display::fmt(emote_id, f)
+            }
+            Self::DocCreate { channel_id }
+            | Self::DocReadMany { channel_id } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+                f.write_str("/docs")
+            }
+            Self::DocDelete { channel_id, doc_id }
+            | Self::DocRead { channel_id, doc_id }
+            | Self::DocUpdate { channel_id, doc_id } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+                f.write_str("/docs/")?;
+                Display::fmt(doc_id, f)
+            }
             Self::ForumTopicCreate { channel_id } => {
                 f.write_str("channels/")?;
-                Display::fmt(channel_id)?;
+                Display::fmt(channel_id, f)?;
                 f.write_str("/topics")
+            }
+            Self::GroupMembershipCreate { group_id, user_id }
+            | Self::GroupMembershipDelete { group_id, user_id } => {
+                f.write_str("groups/")?;
+                Display::fmt(group_id, f)?;
+                f.write_str("/members/")?;
+                Display::fmt(user_id, f)
             }
             Self::ListItemCreate { channel_id }
             | Self::ListItemReadMany { channel_id } => {
@@ -313,7 +357,7 @@ impl Display for Route<'_> {
                 f.write_str("channels/")?;
                 Display::fmt(channel_id, f)?;
                 f.write_str("/items/")?;
-                Display::fmt(list_item_id)?;
+                Display::fmt(list_item_id, f)?;
                 f.write_str("/complete")
             }
             Self::ListItemDelete { channel_id, list_item_id }
@@ -322,7 +366,7 @@ impl Display for Route<'_> {
                 f.write_str("channels/")?;
                 Display::fmt(channel_id, f)?;
                 f.write_str("/items/")?;
-                Display::fmt(list_item_id)
+                Display::fmt(list_item_id, f)
             }
             Self::MemberNicknameDelete { server_id, user_id }
             | Self::MemberNicknameUpdate { server_id, user_id } => {
@@ -331,6 +375,30 @@ impl Display for Route<'_> {
                 f.write_str("/members/")?;
                 Display::fmt(user_id, f)?;
                 f.write_str("/nickname")
+            }
+            Self::MemberSocialLinkRead { server_id, user_id, r#type } => {
+                f.write_str("servers/")?;
+                Display::fmt(server_id, f)?;
+                f.write_str("/members/")?;
+                Display::fmt(user_id, f)?;
+                f.write_str("/social-links/")?;
+                Display::fmt(r#type, f)
+            }
+            Self::RoleMembershipCreate { role_id, server_id, user_id}
+            | Self::RoleMembershipDelete { role_id, server_id, user_id } => {
+                f.write_str("servers/")?;
+                Display::fmt(server_id, f)?;
+                f.write_str("/members/")?;
+                Display::fmt(user_id, f)?;
+                f.write_str("/roles/")?;
+                Display::fmt(role_id, f)
+            }
+            Self::RoleMembershipReadMany { server_id, user_id } => {
+                f.write_str("servers/")?;
+                Display::fmt(server_id, f)?;
+                f.write_str("/members/")?;
+                Display::fmt(user_id, f)?;
+                f.write_str("/roles")
             }
             Self::ServerMemberBanCreate { server_id, user_id }
             | Self::ServerMemberBanDelete { server_id, user_id }
@@ -357,7 +425,38 @@ impl Display for Route<'_> {
                 Display::fmt(server_id, f)?;
                 f.write_str("/members")
             }
-            _ => todo!(),
+            Self::ServerRead { server_id } => {
+                f.write_str("servers/")?;
+                Display::fmt(server_id, f)
+            }
+            Self::ServerXpForRoleCreate { server_id, role_id } => {
+                f.write_str("servers/")?;
+                Display::fmt(server_id, f)?;
+                f.write_str("/roles/")?;
+                Display::fmt(role_id, f)?;
+                f.write_str("/xp")
+            }
+            Self::ServerXpForUserCreate { server_id, user_id } => {
+                f.write_str("servers/")?;
+                Display::fmt(server_id, f)?;
+                f.write_str("/members/")?;
+                Display::fmt(user_id, f)?;
+                f.write_str("/xp")
+            }
+            Self::WebhookCreate { server_id }
+            | Self::WebhookReadMany { server_id } => {
+                f.write_str("servers/")?;
+                Display::fmt(server_id, f)?;
+                f.write_str("/webhooks")
+            }
+            Self::WebhookDelete { server_id, webhook_id }
+            | Self::WebhookRead { server_id, webhook_id }
+            | Self::WebhookUpdate { server_id, webhook_id} => {
+                f.write_str("servers/")?;
+                Display::fmt(server_id, f)?;
+                f.write_str("/webhooks/")?;
+                Display::fmt(webhook_id, f)
+            }
         }
     }
 }
