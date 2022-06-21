@@ -17,6 +17,7 @@ hyper = { default-features = false, features = [ "client", "http1", "http2", "ru
 hyper-rustls = { default-features = false, optional = true, features = [ "http1", "http2" ], version = "0.23.0" }
 hyper-tls = { default-features = false, optional = true, version = "0.5.0" }
 hyper-trust-dns = { default-features = false, optional = true, version = "0.3.1" }
+tokio = { version = "1.19.2", default-features = false, features = ["time"] }
 
 [features]
 default = [ "rustls-native-roots" ]
