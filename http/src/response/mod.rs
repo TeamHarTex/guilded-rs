@@ -4,8 +4,8 @@ use std::pin::Pin;
 use std::task::{Context, Poll};
 
 use guilded_model::id::{marker::ServerMarker, Id};
-use hyper::{Body, Response as HyperResponse};
 use hyper::body::{self, Bytes};
+use hyper::{Body, Response as HyperResponse};
 
 use crate::response::error::{DeserializationError, DeserializationErrorType};
 
@@ -46,7 +46,8 @@ impl<T> Response<T> {
 }
 
 pub struct BytesFuture {
-    future: Pin<Box<dyn Future<Output = Result<Bytes, DeserializationError>> + Send + Sync + 'static>>
+    future:
+        Pin<Box<dyn Future<Output = Result<Bytes, DeserializationError>> + Send + Sync + 'static>>,
 }
 
 impl Future for BytesFuture {

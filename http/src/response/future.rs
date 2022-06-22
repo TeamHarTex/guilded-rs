@@ -21,7 +21,7 @@ pub struct ResponseFuture<T> {
 impl<T> ResponseFuture<T> {
     pub(crate) fn new(
         future: Pin<Box<Timeout<HyperResponseFuture>>>,
-        unauthorized: Option<Arc<AtomicBool>>
+        unauthorized: Option<Arc<AtomicBool>>,
     ) -> Self {
         Self {
             phantom: PhantomData,
@@ -29,7 +29,7 @@ impl<T> ResponseFuture<T> {
                 future,
                 server_id: None,
                 unauthorized,
-            })
+            }),
         }
     }
 }
@@ -73,7 +73,7 @@ impl Chunking {
             r#type: ErrorType::Response {
                 body: bytes,
                 status: self.status,
-            }
+            },
         }))
     }
 }
@@ -100,7 +100,7 @@ impl Sending {
                     r#type: ErrorType::RequestTimeout,
                 }));
             }
-            Poll::Pending => return ResponsePoll::Pending(ResponseStage::Sending(self))
+            Poll::Pending => return ResponsePoll::Pending(ResponseStage::Sending(self)),
         };
 
         if response.status() == StatusCode::UNAUTHORIZED {
