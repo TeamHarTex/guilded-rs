@@ -1,6 +1,6 @@
 //! HTTP Routes of the Guilded API.
 
-use std::fmt::{Display, Formatter, Result as FmtResult, Write};
+use std::fmt::{Display, Formatter, Result as FmtResult};
 
 use guilded_model::datetime::Timestamp;
 

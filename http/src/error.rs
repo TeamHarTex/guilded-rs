@@ -15,7 +15,7 @@ pub enum ErrorType {
     Parsing { body: Vec<u8> },
     RequestError,
     RequestTimeout,
-    Response { body: Vec<u8>, status: StatusCode },
+    Response { body: Vec<u8>, error: ApiError, status: StatusCode },
 }
 
 #[derive(Debug, Deserialize)]

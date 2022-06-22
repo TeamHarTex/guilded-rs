@@ -53,7 +53,7 @@ pub struct BytesFuture {
 impl Future for BytesFuture {
     type Output = Result<Vec<u8>, DeserializationError>;
 
-    fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
+    fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         if let Poll::Ready(result) = Pin::new(&mut self.future).poll(cx) {
             Poll::Ready(result.map(|b| b.into_iter().collect()))
         } else {

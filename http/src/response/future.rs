@@ -72,6 +72,7 @@ impl Chunking {
             source: None,
             r#type: ErrorType::Response {
                 body: bytes,
+                error,
                 status: self.status,
             },
         }))
@@ -109,6 +110,7 @@ impl Sending {
             }
         }
 
+        let status = response.status();
         let future = async {
             Response::<()>::new(response)
                 .bytes()
@@ -121,7 +123,7 @@ impl Sending {
 
         ResponsePoll::Advance(ResponseStage::Chunking(Chunking {
             future: Box::pin(future),
-            status: response.status(),
+            status,
         }))
     }
 }
