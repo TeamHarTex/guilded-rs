@@ -12,10 +12,16 @@ pub struct Error {
 #[derive(Debug)]
 pub enum ErrorType {
     ChunkingResponse,
-    Parsing { body: Vec<u8> },
+    Parsing {
+        body: Vec<u8>,
+    },
     RequestError,
     RequestTimeout,
-    Response { body: Vec<u8>, error: ApiError, status: StatusCode },
+    Response {
+        body: Vec<u8>,
+        error: ApiError,
+        status: StatusCode,
+    },
 }
 
 #[derive(Debug, Deserialize)]
