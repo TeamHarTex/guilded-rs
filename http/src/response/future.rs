@@ -33,6 +33,15 @@ impl<T> ResponseFuture<T> {
             }),
         }
     }
+
+    pub fn error(source: Error) -> Self {
+        Self {
+            phantom: PhantomData,
+            stage: ResponseStage::Failed(Failed {
+                source
+            }),
+        }
+    }
 }
 
 impl<T> Future for ResponseFuture<T> {

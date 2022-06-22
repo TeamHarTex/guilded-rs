@@ -6,6 +6,7 @@ use hyper::client::Client as Hyper;
 
 use crate::client::builder::ClientBuilder;
 use crate::client::connector::Connector;
+use crate::error::Error;
 use crate::request::Request;
 use crate::response::future::ResponseFuture;
 
@@ -32,7 +33,14 @@ impl Client {
         self.token.as_deref()
     }
 
-    pub fn request<T>(&self, _: Request) -> ResponseFuture<T> {
+    pub fn request<T>(&self, request: Request) -> ResponseFuture<T> {
+        match self.try_request(request) {
+            Ok(future) => future,
+            Err(source) => ResponseFuture::error(source),
+        }
+    }
+
+    fn try_request<T>(&self, _: Request) -> Result<ResponseFuture<T>, Error> {
         todo!()
     }
 }
