@@ -4,6 +4,7 @@
 
 pub mod client;
 pub mod error;
+pub mod json;
 pub mod request;
 pub mod response;
 pub mod route;

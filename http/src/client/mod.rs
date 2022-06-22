@@ -6,6 +6,8 @@ use hyper::client::Client as Hyper;
 
 use crate::client::builder::ClientBuilder;
 use crate::client::connector::Connector;
+use crate::request::Request;
+use crate::response::future::ResponseFuture;
 
 pub mod builder;
 pub mod connector;
@@ -28,5 +30,9 @@ impl Client {
 
     pub fn token(&self) -> Option<&str> {
         self.token.as_deref()
+    }
+
+    pub fn request<T>(&self, _: Request) -> ResponseFuture<T> {
+        todo!()
     }
 }

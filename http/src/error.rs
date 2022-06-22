@@ -1,4 +1,5 @@
 use std::error::Error as StdError;
+use hyper::StatusCode;
 
 #[derive(Debug)]
 pub struct Error {
@@ -8,6 +9,19 @@ pub struct Error {
 
 #[derive(Debug)]
 pub enum ErrorType {
+    ChunkingResponse,
+    Parsing {
+        body: Vec<u8>,
+    },
     RequestError,
     RequestTimeout,
+    Response {
+        body: Vec<u8>,
+        status: StatusCode,
+    }
+}
+
+pub struct ApiError {
+    pub code: String,
+    pub message: String,
 }
