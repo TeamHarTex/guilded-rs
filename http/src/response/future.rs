@@ -1,5 +1,6 @@
 use std::future::Future;
 use std::marker::PhantomData;
+use std::mem;
 use std::pin::Pin;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
@@ -34,6 +35,39 @@ impl<T> ResponseFuture<T> {
     }
 }
 
+impl<T> Future for ResponseFuture<T> {
+    type Output = Output<T>;
+
+    fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
+        loop {
+            let stage = mem::replace(&mut self.stage, ResponseStage::Completed);
+
+            let result = match stage {
+                ResponseStage::Chunking(chunking) => chunking.poll(cx),
+                ResponseStage::Completed => panic!("future already completed"),
+                ResponseStage::Failed(failed) => failed.poll(cx),
+                ResponseStage::Sending(in_flight) => in_flight.poll(cx),
+            };
+
+            match result {
+                ResponsePoll::Advance(stage) => {
+                    self.stage = stage;
+                }
+                ResponsePoll::Pending(stage) => {
+                    self.stage = stage;
+
+                    return Poll::Pending;
+                }
+                ResponsePoll::Ready(output) => {
+                    self.stage = ResponseStage::Completed;
+
+                    return Poll::Ready(output);
+                }
+            }
+        }
+    }
+}
+
 enum ResponsePoll<T> {
     Advance(ResponseStage),
     Pending(ResponseStage),
@@ -42,6 +76,8 @@ enum ResponsePoll<T> {
 
 enum ResponseStage {
     Chunking(Chunking),
+    Completed,
+    Failed(Failed),
     Sending(Sending),
 }
 
@@ -76,6 +112,16 @@ impl Chunking {
                 status: self.status,
             },
         }))
+    }
+}
+
+struct Failed {
+    source: Error,
+}
+
+impl Failed {
+    fn poll<T>(self, _: &mut Context<'_>) -> ResponsePoll<T> {
+        ResponsePoll::Ready(Err(self.source))
     }
 }
 
