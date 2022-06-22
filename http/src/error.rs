@@ -1,5 +1,7 @@
-use hyper::StatusCode;
 use std::error::Error as StdError;
+
+use hyper::StatusCode;
+use serde::Deserialize;
 
 #[derive(Debug)]
 pub struct Error {
@@ -16,6 +18,7 @@ pub enum ErrorType {
     Response { body: Vec<u8>, status: StatusCode },
 }
 
+#[derive(Debug, Deserialize)]
 pub struct ApiError {
     pub code: String,
     pub message: String,
