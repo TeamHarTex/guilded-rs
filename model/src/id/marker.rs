@@ -2,6 +2,13 @@
 //!
 //! These markers perform no logical action themselves, instead they are used for type-checking.
 
+/// A marker for calendar event IDs.
+///
+/// Category IDs on Guilded are unique numerical IDs (for example, `123456`).
+#[derive(Clone, Copy, Debug)]
+#[non_exhaustive]
+pub struct CalendarEventMarker;
+
 /// A marker for category IDs.
 ///
 /// Category IDs on Guilded are unique numerical IDs (for example, `123456`).
