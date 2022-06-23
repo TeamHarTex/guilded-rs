@@ -12,6 +12,10 @@ pub struct Error {
 #[derive(Debug)]
 pub enum ErrorType {
     ChunkingResponse,
+    HttpHeaderCreation {
+        name: String,
+    },
+    HttpRequestBuild,
     Parsing {
         body: Vec<u8>,
     },

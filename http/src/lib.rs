@@ -8,3 +8,5 @@ pub mod json;
 pub mod request;
 pub mod response;
 pub mod route;
+
+pub const API_VERSION: u8 = 10;
