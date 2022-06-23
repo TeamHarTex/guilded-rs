@@ -1,12 +1,33 @@
 //! HTTP Routes of the Guilded API.
 
-use std::fmt::{Display, Formatter, Result as FmtResult};
+use std::fmt::{Display, Formatter, Result as FmtResult, Write};
 
 use guilded_model::datetime::Timestamp;
 
 use crate::request::Method;
 
 pub enum Route<'a> {
+    CalendarEventCreate {
+        channel_id: &'a str,
+    },
+    CalendarEventDelete {
+        calendar_event_id: u32,
+        channel_id: &'a str,
+    },
+    CalendarEventRead {
+        calendar_event_id: u32,
+        channel_id: &'a str,
+    },
+    CalendarEventReadMany {
+        after: Option<Timestamp>,
+        before: Option<Timestamp>,
+        channel_id: &'a str,
+        limit: Option<u64>,
+    },
+    CalendarEventUpdate {
+        calendar_event_id: u32,
+        channel_id: &'a str,
+    },
     ChannelMessageCreate {
         channel_id: &'a str,
     },
@@ -191,7 +212,9 @@ pub enum Route<'a> {
 impl<'a> Route<'a> {
     pub fn method(&self) -> Method {
         match self {
-            Self::ChannelMessageRead { .. }
+            Self::CalendarEventRead { .. }
+            | Self::CalendarEventReadMany { .. }
+            | Self::ChannelMessageRead { .. }
             | Self::ChannelRead { .. }
             | Self::ChannelMessageReadMany { .. }
             | Self::DocRead { .. }
@@ -207,7 +230,8 @@ impl<'a> Route<'a> {
             | Self::ServerRead { .. }
             | Self::WebhookRead { .. }
             | Self::WebhookReadMany { .. } => Method::Get,
-            Self::ChannelDelete { .. }
+            Self::CalendarEventDelete { .. }
+            | Self::ChannelDelete { .. }
             | Self::ChannelMessageDelete { .. }
             | Self::ContentReactionDelete { .. }
             | Self::DocDelete { .. }
@@ -219,8 +243,9 @@ impl<'a> Route<'a> {
             | Self::ServerMemberDelete { .. }
             | Self::ServerMemberBanDelete { .. }
             | Self::WebhookDelete { .. } => Method::Delete,
-            Self::ChannelUpdate { .. } => Method::Patch,
-            Self::ChannelCreate
+            Self::CalendarEventUpdate { .. } | Self::ChannelUpdate { .. } => Method::Patch,
+            Self::CalendarEventCreate { .. }
+            | Self::ChannelCreate
             | Self::ChannelMessageCreate { .. }
             | Self::ContentReactionCreate { .. }
             | Self::DocCreate { .. }
@@ -245,6 +270,55 @@ impl<'a> Route<'a> {
 impl Display for Route<'_> {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         match self {
+            Self::CalendarEventCreate { channel_id } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+                f.write_str("/events")
+            }
+            Self::CalendarEventDelete {
+                calendar_event_id,
+                channel_id,
+            }
+            | Self::CalendarEventRead {
+                calendar_event_id,
+                channel_id,
+            }
+            | Self::CalendarEventUpdate {
+                calendar_event_id,
+                channel_id,
+            } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+                f.write_str("/events/")?;
+                Display::fmt(calendar_event_id, f)
+            }
+            Self::CalendarEventReadMany {
+                after,
+                before,
+                channel_id,
+                limit,
+            } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+                f.write_str("/events?")?;
+
+                if let Some(after) = after {
+                    f.write_str("after=")?;
+                    Display::fmt(&after.display(), f)?;
+                }
+
+                if let Some(before) = before {
+                    f.write_str("&before=")?;
+                    Display::fmt(&before.display(), f)?;
+                }
+
+                if let Some(limit) = limit {
+                    f.write_str("&limit=")?;
+                    Display::fmt(limit, f)?;
+                }
+
+                Ok(())
+            }
             Self::ChannelCreate => f.write_str("channels"),
             Self::ChannelDelete { channel_id }
             | Self::ChannelRead { channel_id }

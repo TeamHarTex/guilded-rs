@@ -4,7 +4,10 @@ use serde::{Deserialize, Serialize};
 
 use crate::channel::mentions::Mentions;
 use crate::datetime::Timestamp;
-use crate::id::{marker::{CalendarEventMarker, ChannelMarker, ServerMarker, UserMarker}, Id};
+use crate::id::{
+    marker::{CalendarEventMarker, ChannelMarker, ServerMarker, UserMarker},
+    Id,
+};
 
 /// Represents a calendar event.
 #[derive(Clone, Debug, Deserialize, Serialize)]

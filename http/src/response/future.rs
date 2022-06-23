@@ -37,14 +37,12 @@ impl<T> ResponseFuture<T> {
     pub fn error(source: Error) -> Self {
         Self {
             phantom: PhantomData,
-            stage: ResponseStage::Failed(Failed {
-                source
-            }),
+            stage: ResponseStage::Failed(Failed { source }),
         }
     }
 }
 
-impl<T> Future for ResponseFuture<T> {
+impl<T: Unpin> Future for ResponseFuture<T> {
     type Output = Output<T>;
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {

@@ -1,5 +1,7 @@
 //! The CalendarEventDeleted event.
 
+use serde::{Deserialize, Serialize};
+
 use crate::events::CalendarEvent;
 use crate::id::{marker::ServerMarker, Id};
 
