@@ -50,14 +50,14 @@ pub enum Route<'a> {
         channel_id: &'a str,
         message_id: &'a str,
     },
-    ChannelCreate,
-    ChannelDelete {
+    ServerChannelCreate,
+    ServerChannelDelete {
         channel_id: &'a str,
     },
-    ChannelRead {
+    ServerChannelRead {
         channel_id: &'a str,
     },
-    ChannelUpdate {
+    ServerChannelUpdate {
         channel_id: &'a str,
     },
     ContentReactionCreate {
@@ -215,7 +215,7 @@ impl<'a> Route<'a> {
             Self::CalendarEventRead { .. }
             | Self::CalendarEventReadMany { .. }
             | Self::ChannelMessageRead { .. }
-            | Self::ChannelRead { .. }
+            | Self::ServerChannelRead { .. }
             | Self::ChannelMessageReadMany { .. }
             | Self::DocRead { .. }
             | Self::DocReadMany { .. }
@@ -231,7 +231,7 @@ impl<'a> Route<'a> {
             | Self::WebhookRead { .. }
             | Self::WebhookReadMany { .. } => Method::Get,
             Self::CalendarEventDelete { .. }
-            | Self::ChannelDelete { .. }
+            | Self::ServerChannelDelete { .. }
             | Self::ChannelMessageDelete { .. }
             | Self::ContentReactionDelete { .. }
             | Self::DocDelete { .. }
@@ -243,9 +243,9 @@ impl<'a> Route<'a> {
             | Self::ServerMemberDelete { .. }
             | Self::ServerMemberBanDelete { .. }
             | Self::WebhookDelete { .. } => Method::Delete,
-            Self::CalendarEventUpdate { .. } | Self::ChannelUpdate { .. } => Method::Patch,
+            Self::CalendarEventUpdate { .. } | Self::ServerChannelUpdate { .. } => Method::Patch,
             Self::CalendarEventCreate { .. }
-            | Self::ChannelCreate
+            | Self::ServerChannelCreate
             | Self::ChannelMessageCreate { .. }
             | Self::ContentReactionCreate { .. }
             | Self::DocCreate { .. }
@@ -319,10 +319,10 @@ impl Display for Route<'_> {
 
                 Ok(())
             }
-            Self::ChannelCreate => f.write_str("channels"),
-            Self::ChannelDelete { channel_id }
-            | Self::ChannelRead { channel_id }
-            | Self::ChannelUpdate { channel_id } => {
+            Self::ServerChannelCreate => f.write_str("channels"),
+            Self::ServerChannelDelete { channel_id }
+            | Self::ServerChannelRead { channel_id }
+            | Self::ServerChannelUpdate { channel_id } => {
                 f.write_str("channels/")?;
                 Display::fmt(channel_id, f)
             }

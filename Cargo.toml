@@ -3,4 +3,5 @@ members = [
     "guilded",
     "http",
     "model",
+    "validation",
 ]

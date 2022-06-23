@@ -1,6 +1,8 @@
 use hyper::header::HeaderValue;
 use hyper::{HeaderMap, Method as HyperMethod};
 
+pub mod server;
+
 #[derive(Clone, Debug)]
 pub struct Request {
     pub(crate) body: Option<Vec<u8>>,

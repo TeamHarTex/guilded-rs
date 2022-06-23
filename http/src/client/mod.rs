@@ -5,7 +5,7 @@ use std::sync::Arc;
 use std::time::Duration;
 
 use hyper::client::Client as Hyper;
-use hyper::header::{HeaderValue, AUTHORIZATION, CONTENT_LENGTH, CONTENT_TYPE};
+use hyper::header::{HeaderValue, ACCEPT, AUTHORIZATION, CONTENT_LENGTH, CONTENT_TYPE};
 use hyper::{Body, Request as HyperRequest};
 use tokio::time;
 
@@ -86,6 +86,8 @@ impl Client {
             } else if matches!(method, Method::Put | Method::Post | Method::Patch) {
                 headers.insert(CONTENT_LENGTH, HeaderValue::from(0));
             }
+
+            headers.insert(ACCEPT, HeaderValue::from_static("application/json"));
 
             if let Some(request_headers) = request_headers {
                 for (maybe_name, value) in request_headers {
