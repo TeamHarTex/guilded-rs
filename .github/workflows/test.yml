@@ -43,8 +43,6 @@ jobs:
           override: true
           profile: default
       - name: Install cargo-nextest
-        uses: baptiste0928/cargo-install@v1
-        with:
-          crate: cargo-nextest
+        uses: taiki-e/install-action@nextest
       - name: Test
         run: cargo nextest run
