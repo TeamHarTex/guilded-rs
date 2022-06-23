@@ -5,7 +5,7 @@
 pub mod channel;
 pub mod datetime;
 pub mod document;
-pub mod events;
+pub mod event;
 pub mod forum;
 pub mod gateway;
 pub mod id;
