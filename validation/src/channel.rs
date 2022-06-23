@@ -24,8 +24,8 @@ pub enum ChannelValidationErrorType {
     InvalidNameLength,
 }
 
-pub const CHANNEL_NAME_MIN_LENGTH: usize = 100;
-pub const CHANNEL_NAME_MAX_LENGTH: usize = 1;
+pub const CHANNEL_NAME_MIN_LENGTH: usize = 1;
+pub const CHANNEL_NAME_MAX_LENGTH: usize = 100;
 
 pub fn validate_name_length(name: impl AsRef<str>) -> Result<(), ChannelValidationError> {
     let length = name.as_ref().chars().count();
