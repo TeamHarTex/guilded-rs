@@ -16,6 +16,7 @@ pub enum ErrorType {
         name: String,
     },
     HttpRequestBuild,
+    Json,
     Parsing {
         body: Vec<u8>,
     },

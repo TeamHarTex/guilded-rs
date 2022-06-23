@@ -4,6 +4,8 @@ use std::sync::atomic::AtomicBool;
 use std::sync::Arc;
 use std::time::Duration;
 
+use guilded_model::channel::ServerChannelType;
+use guilded_validation::channel::ChannelValidationError;
 use hyper::client::Client as Hyper;
 use hyper::header::{HeaderValue, ACCEPT, AUTHORIZATION, CONTENT_LENGTH, CONTENT_TYPE};
 use hyper::{Body, Request as HyperRequest};
@@ -12,6 +14,7 @@ use tokio::time;
 use crate::client::builder::ClientBuilder;
 use crate::client::connector::Connector;
 use crate::error::{Error, ErrorType};
+use crate::request::server::server_channel_create::ServerChannelCreate;
 use crate::request::{Method, Request};
 use crate::response::future::ResponseFuture;
 use crate::API_VERSION;
@@ -39,6 +42,14 @@ impl Client {
 
     pub fn token(&self) -> Option<&str> {
         self.token.as_deref()
+    }
+
+    pub fn server_channel_create<'a>(
+        &'a self,
+        name: &'a str,
+        r#type: ServerChannelType,
+    ) -> Result<ServerChannelCreate<'a>, ChannelValidationError> {
+        ServerChannelCreate::new(self, name, r#type)
     }
 
     pub fn request<T>(&self, request: Request) -> ResponseFuture<T> {
