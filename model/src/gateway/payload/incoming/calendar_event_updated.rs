@@ -2,7 +2,7 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::events::CalendarEvent;
+use crate::event::CalendarEvent;
 use crate::id::{marker::ServerMarker, Id};
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
