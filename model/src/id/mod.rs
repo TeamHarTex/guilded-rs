@@ -21,6 +21,12 @@ pub struct Id<M> {
     value: IdValue,
 }
 
+impl<M> Id<M> {
+    pub fn value(&self) -> IdValue {
+        self.value.clone()
+    }
+}
+
 impl<M> Debug for Id<M> {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         f.write_str("Id")?;
@@ -144,6 +150,16 @@ pub enum IdValue {
     Int(u32),
     /// A unique UUID.
     Uuid(Uuid),
+}
+
+impl IdValue {
+    pub fn unwrap_alphanumeric(self) -> &str {
+        if let Self::AlphanumericId(id) = self {
+            return id.as_ref();
+        }
+
+        panic!("id not alphanumeric")
+    }
 }
 
 impl Debug for IdValue {

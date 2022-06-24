@@ -8,7 +8,7 @@ edition = "2021"
 license = "ISC"
 repository = "https://github.com/HarTexTeam/guilded-rs"
 rust-version = "1.57.0"
-version = "0.1.0-dev.15"
+version = "0.1.0-dev.16"
 
 [dependencies]
 serde = { default-features = false, features = [ "derive", "std" ], version = "1.0.137" }
