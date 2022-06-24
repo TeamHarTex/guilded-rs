@@ -47,7 +47,7 @@ impl<'a> ServerChannelUpdate<'a> {
     }
 }
 
-impl TryInto<Request> for ServerChannelUpdate {
+impl TryInto<Request> for ServerChannelUpdate<'_> {
     type Error = Error;
 
     fn try_into(self) -> Result<Request, Self::Error> {
@@ -59,7 +59,7 @@ impl TryInto<Request> for ServerChannelUpdate {
 }
 
 #[derive(Serialize)]
-#[serde(rename_all = "Option::is_none")]
+#[serde(rename_all = "camelCase")]
 struct ServerChannelUpdateFields<'a> {
     #[serde(skip_serializing_if = "Option::is_none")]
     name: Option<&'a str>,
