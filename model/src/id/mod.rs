@@ -153,9 +153,9 @@ pub enum IdValue {
 }
 
 impl IdValue {
-    pub fn unwrap_alphanumeric(self) -> &str {
+    pub fn unwrap_alphanumeric(self) -> String {
         if let Self::AlphanumericId(id) = self {
-            return id.as_ref();
+            return id;
         }
 
         panic!("id not alphanumeric")
