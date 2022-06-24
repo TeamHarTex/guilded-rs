@@ -17,10 +17,10 @@ use crate::client::connector::Connector;
 use crate::error::{Error, ErrorType};
 use crate::request::server::server_channel_create::ServerChannelCreate;
 use crate::request::server::server_channel_read::ServerChannelRead;
+use crate::request::server::server_channel_update::ServerChannelUpdate;
 use crate::request::{Method, Request};
 use crate::response::future::ResponseFuture;
 use crate::API_VERSION;
-use crate::request::server::server_channel_update::ServerChannelUpdate;
 
 pub mod builder;
 pub mod connector;
