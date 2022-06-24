@@ -30,6 +30,13 @@ pub struct ChannelMarker;
 #[non_exhaustive]
 pub struct DocumentMarker;
 
+/// A marker for emote IDs.
+///
+/// Emote IDs on Guilded are unique numerical IDs (for example, `123456`).
+#[derive(Clone, Copy, Debug)]
+#[non_exhaustive]
+pub struct EmoteMarker;
+
 /// A marker for forum thread IDs.
 ///
 /// Forum thread IDs on Guilded are unique numerical IDs (for example, `123456`).
