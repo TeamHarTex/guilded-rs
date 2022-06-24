@@ -16,6 +16,7 @@ use crate::client::builder::ClientBuilder;
 use crate::client::connector::Connector;
 use crate::error::{Error, ErrorType};
 use crate::request::server::server_channel_create::ServerChannelCreate;
+use crate::request::server::server_channel_delete::ServerChannelDelete;
 use crate::request::server::server_channel_read::ServerChannelRead;
 use crate::request::server::server_channel_update::ServerChannelUpdate;
 use crate::request::{Method, Request};
@@ -55,6 +56,10 @@ impl Client {
         ServerChannelCreate::new(self, name, r#type)
     }
 
+    pub fn server_channel_delete(&self, channel_id: Id<ChannelMarker>) -> ServerChannelDelete {
+        ServerChannelDelete::new(self, channel_id)
+    }
+    
     pub fn server_channel_read(&self, channel_id: Id<ChannelMarker>) -> ServerChannelRead {
         ServerChannelRead::new(self, channel_id)
     }
