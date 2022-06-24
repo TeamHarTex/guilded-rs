@@ -59,7 +59,7 @@ impl Client {
     pub fn server_channel_delete(&self, channel_id: Id<ChannelMarker>) -> ServerChannelDelete {
         ServerChannelDelete::new(self, channel_id)
     }
-    
+
     pub fn server_channel_read(&self, channel_id: Id<ChannelMarker>) -> ServerChannelRead {
         ServerChannelRead::new(self, channel_id)
     }
