@@ -5,7 +5,7 @@ use std::sync::Arc;
 use std::time::Duration;
 
 use guilded_model::channel::ServerChannelType;
-use guilded_model::id::{marker::ChannelMarker, Id};
+use guilded_model::id::{marker::{ChannelMarker, ServerMarker}, Id};
 use guilded_validation::channel::ChannelValidationError;
 use hyper::client::Client as Hyper;
 use hyper::header::{HeaderValue, ACCEPT, AUTHORIZATION, CONTENT_LENGTH, CONTENT_TYPE};
@@ -19,10 +19,10 @@ use crate::request::server::server_channel_create::ServerChannelCreate;
 use crate::request::server::server_channel_delete::ServerChannelDelete;
 use crate::request::server::server_channel_read::ServerChannelRead;
 use crate::request::server::server_channel_update::ServerChannelUpdate;
+use crate::request::server::server_read::ServerRead;
 use crate::request::{Method, Request};
 use crate::response::future::ResponseFuture;
 use crate::API_VERSION;
-
 pub mod builder;
 pub mod connector;
 
@@ -66,6 +66,10 @@ impl Client {
 
     pub fn server_channel_update(&self, channel_id: Id<ChannelMarker>) -> ServerChannelUpdate {
         ServerChannelUpdate::new(self, channel_id)
+    }
+
+    pub fn server_read(&self, server_id: Id<ServerMarker>) -> ServerRead {
+        ServerRead::new(self, server_id)
     }
 
     pub fn request<T>(&self, request: Request) -> ResponseFuture<T> {
