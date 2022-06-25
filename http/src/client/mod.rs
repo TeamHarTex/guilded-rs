@@ -18,6 +18,7 @@ use tokio::time;
 use crate::client::builder::ClientBuilder;
 use crate::client::connector::Connector;
 use crate::error::{Error, ErrorType};
+use crate::request::messaging::channel_message_create::ChannelMessageCreate;
 use crate::request::server::server_channel_create::ServerChannelCreate;
 use crate::request::server::server_channel_delete::ServerChannelDelete;
 use crate::request::server::server_channel_read::ServerChannelRead;
@@ -26,6 +27,7 @@ use crate::request::server::server_read::ServerRead;
 use crate::request::{Method, Request};
 use crate::response::future::ResponseFuture;
 use crate::API_VERSION;
+
 pub mod builder;
 pub mod connector;
 
@@ -49,6 +51,10 @@ impl Client {
 
     pub fn token(&self) -> Option<&str> {
         self.token.as_deref()
+    }
+
+    pub fn channel_message_create(&self, channel_id: Id<ChannelMarker>) -> ChannelMessageCreate {
+        ChannelMessageCreate::new(self, channel_id)
     }
 
     pub fn server_channel_create<'a>(
