@@ -160,6 +160,14 @@ impl IdValue {
 
         panic!("id not alphanumeric")
     }
+
+    pub fn unwrap_uuid(self) -> String {
+        if let Self::Uuid(id) = self {
+            return id.to_hyphenated().to_string();
+        }
+
+        panic!("id not uuid")
+    }
 }
 
 impl Debug for IdValue {

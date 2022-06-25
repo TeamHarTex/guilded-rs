@@ -35,6 +35,6 @@ impl TryInto<Request> for ServerRead<'_> {
         Ok(Request::builder(&Route::ServerRead {
             server_id: &self.server_id.value().unwrap_alphanumeric(),
         })
-            .build())
+        .build())
     }
 }

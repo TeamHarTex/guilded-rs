@@ -5,6 +5,7 @@ use serde::Serialize;
 use crate::error::{Error, ErrorType};
 use crate::route::Route;
 
+pub mod messaging;
 pub mod server;
 
 #[derive(Clone, Debug)]

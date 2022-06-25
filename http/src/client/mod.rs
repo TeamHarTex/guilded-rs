@@ -5,7 +5,10 @@ use std::sync::Arc;
 use std::time::Duration;
 
 use guilded_model::channel::ServerChannelType;
-use guilded_model::id::{marker::{ChannelMarker, ServerMarker}, Id};
+use guilded_model::id::{
+    marker::{ChannelMarker, ServerMarker},
+    Id,
+};
 use guilded_validation::channel::ChannelValidationError;
 use hyper::client::Client as Hyper;
 use hyper::header::{HeaderValue, ACCEPT, AUTHORIZATION, CONTENT_LENGTH, CONTENT_TYPE};

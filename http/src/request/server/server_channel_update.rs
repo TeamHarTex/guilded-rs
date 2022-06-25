@@ -51,10 +51,12 @@ impl TryInto<Request> for ServerChannelUpdate<'_> {
     type Error = Error;
 
     fn try_into(self) -> Result<Request, Self::Error> {
-        Ok(Request::builder(&Route::ServerChannelUpdate {
+        let mut request = Request::builder(&Route::ServerChannelUpdate {
             channel_id: &self.channel_id.value().unwrap_alphanumeric(),
-        })
-        .build())
+        });
+        request = request.json(&self.fields)?;
+
+        Ok(request.build())
     }
 }
 

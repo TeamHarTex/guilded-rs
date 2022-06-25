@@ -1,5 +1,5 @@
 use std::error::Error;
-use std::fmt::{Display, Formatter};
+use std::fmt::{self, Display, Formatter};
 
 #[derive(Debug)]
 pub struct ChannelValidationError {
@@ -7,7 +7,7 @@ pub struct ChannelValidationError {
 }
 
 impl Display for ChannelValidationError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         match self.r#type {
             ChannelValidationErrorType::InvalidNameLength => {
                 f.write_str("invalid length of channel name")
