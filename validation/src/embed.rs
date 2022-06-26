@@ -11,8 +11,8 @@ pub struct EmbedValidationError {
 impl Display for EmbedValidationError {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         match self.r#type {
-            EmbedValidationErrorType::InvalidColourValue => {
-                f.write_str("colour value out of range")
+            EmbedValidationErrorType::InvalidColorValue => {
+                f.write_str("color value out of range")
             }
             EmbedValidationErrorType::InvalidDescriptionLength => {
                 f.write_str("invalid length of embed description")
@@ -29,18 +29,18 @@ impl Error for EmbedValidationError {}
 #[derive(Debug)]
 #[non_exhaustive]
 pub enum EmbedValidationErrorType {
-    InvalidColourValue,
+    InvalidColorValue,
     InvalidDescriptionLength,
     InvalidTitleLength,
 }
 
-pub const EMBED_COLOUR_BLACK: u32 = 0xFFFFFF;
-pub const EMBED_COLOUR_WHITE: u32 = 0x000000;
+pub const EMBED_COLOR_BLACK: u32 = 0xFFFFFF;
+pub const EMBED_COLOR_WHITE: u32 = 0x000000;
 pub const EMBED_DESCRIPTION_MAX_LENGTH: usize = 2048;
 pub const EMBED_TITLE_MAX_LENGTH: usize = 256;
 
-pub fn validate_colour_range(colour: u32) -> ValidationResult<EmbedValidationError> {
-    if (EMBED_COLOUR_WHITE..=EMBED_COLOUR_BLACK).contains(&colour) {
+pub fn validate_color_range(colour: u32) -> ValidationResult<EmbedValidationError> {
+    if (EMBED_COLOR_WHITE..=EMBED_COLOR_BLACK).contains(&colour) {
         return Ok(());
     }
 
