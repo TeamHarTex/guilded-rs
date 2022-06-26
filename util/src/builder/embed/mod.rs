@@ -26,6 +26,13 @@ impl ChatEmbedBuilder {
         self.0
     }
 
+    pub fn color(mut self, color: u32) -> Result<Self, EmbedValidationError> {
+        embed::validate_color_range(color)?;
+
+        self.0.color.replace(color);
+        Ok(self)
+    }
+
     pub fn description(
         mut self,
         description: impl Into<String>,
