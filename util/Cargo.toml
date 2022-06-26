@@ -1,0 +1,17 @@
+[package]
+name = "guilded_util"
+authors = [ "The HarTex Community" ]
+description = """
+Utility crate for the Guilded-rs Ecosystem.
+"""
+edition = "2021"
+license = "ISC"
+repository = "https://github.com/HarTexTeam/guilded-rs"
+rust-version = "1.57.0"
+version = "0.1.0-dev.1"
+
+[dependencies]
+guilded_model = "0.1.0-dev.17"
+
+[features]
+builder = []

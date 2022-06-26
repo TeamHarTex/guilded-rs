@@ -4,4 +4,5 @@ members = [
     "http",
     "model",
     "validation",
+    "util",
 ]
