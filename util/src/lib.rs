@@ -1,1 +1,2 @@
-#[cfg(feature = "builder")] pub mod builder;
+#[cfg(feature = "builder")]
+pub mod builder;

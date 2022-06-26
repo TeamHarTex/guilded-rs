@@ -11,4 +11,3 @@ pub struct CalendarEventUpdated {
     pub calendar_event: CalendarEvent,
     pub server_id: Id<ServerMarker>,
 }
-

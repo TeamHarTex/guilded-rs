@@ -10,7 +10,7 @@ use crate::datetime::Timestamp;
 pub struct ChatEmbed {
     pub author: Option<ChatEmbedAuthor>,
     pub color: Option<u32>,
-    pub  description: Option<String>,
+    pub description: Option<String>,
     pub fields: Option<Vec<ChatEmbedField>>,
     pub footer: Option<ChatEmbedFooter>,
     pub image: Option<ChatEmbedImage>,
