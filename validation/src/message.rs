@@ -1,6 +1,8 @@
 use std::error::Error;
 use std::fmt::{self, Display, Formatter};
 
+use crate::ValidationResult;
+
 #[derive(Debug)]
 pub struct MessageValidationError {
     r#type: MessageValidationErrorType,
@@ -27,7 +29,7 @@ pub enum MessageValidationErrorType {
 pub const MESSAGE_CONTENT_MIN_LENGTH: usize = 1;
 pub const MESSAGE_CONTENT_MAX_LENGTH: usize = 4000;
 
-pub fn validate_content_length(name: impl AsRef<str>) -> Result<(), MessageValidationError> {
+pub fn validate_content_length(name: impl AsRef<str>) -> ValidationResult<MessageValidationError> {
     let length = name.as_ref().chars().count();
 
     if (MESSAGE_CONTENT_MIN_LENGTH..=MESSAGE_CONTENT_MAX_LENGTH).contains(&length) {

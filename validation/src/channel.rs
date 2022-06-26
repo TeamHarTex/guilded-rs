@@ -1,6 +1,8 @@
 use std::error::Error;
 use std::fmt::{self, Display, Formatter};
 
+use crate::ValidationResult;
+
 #[derive(Debug)]
 pub struct ChannelValidationError {
     r#type: ChannelValidationErrorType,
@@ -34,7 +36,7 @@ pub const CHANNEL_NAME_MAX_LENGTH: usize = 100;
 pub const CHANNEL_TOPIC_MIN_LENGTH: usize = 1;
 pub const CHANNEL_TOPIC_MAX_LENGTH: usize = 512;
 
-pub fn validate_name_length(name: impl AsRef<str>) -> Result<(), ChannelValidationError> {
+pub fn validate_name_length(name: impl AsRef<str>) -> ValidationResult<ChannelValidationError> {
     let length = name.as_ref().chars().count();
 
     if (CHANNEL_NAME_MIN_LENGTH..=CHANNEL_NAME_MAX_LENGTH).contains(&length) {
@@ -46,7 +48,7 @@ pub fn validate_name_length(name: impl AsRef<str>) -> Result<(), ChannelValidati
     })
 }
 
-pub fn validate_topic_length(topic: impl AsRef<str>) -> Result<(), ChannelValidationError> {
+pub fn validate_topic_length(topic: impl AsRef<str>) -> ValidationResult<ChannelValidationError> {
     let length = topic.as_ref().chars().count();
 
     if (CHANNEL_TOPIC_MIN_LENGTH..=CHANNEL_TOPIC_MAX_LENGTH).contains(&length) {
