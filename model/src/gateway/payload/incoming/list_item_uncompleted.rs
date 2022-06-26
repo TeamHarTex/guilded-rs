@@ -8,6 +8,6 @@ use crate::list::ListItem;
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ListItemUncompleted {
-    list_item: ListItem,
-    server_id: Id<ServerMarker>,
+    pub list_item: ListItem,
+    pub server_id: Id<ServerMarker>,
 }

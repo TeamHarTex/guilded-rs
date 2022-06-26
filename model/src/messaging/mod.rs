@@ -15,74 +15,20 @@ pub mod embed;
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ChatMessage {
-    channel_id: Id<ChannelMarker>,
-    content: String,
-    created_at: Timestamp,
-    created_by: Id<UserMarker>,
-    created_by_webhook_id: Option<Id<WebhookMarker>>,
-    embeds: Option<Vec<embed::ChatEmbed>>,
-    id: Id<MessageMarker>,
-    is_private: Option<bool>,
-    is_silent: Option<bool>,
-    mentions: Mentions,
-    reply_message_ids: Option<Vec<Id<MessageMarker>>>,
-    server_id: Id<ServerMarker>,
-    r#type: ChatMessageType,
-    updated_at: Option<Timestamp>,
-}
-
-impl ChatMessage {
-    pub fn channel_id(&self) -> Id<ChannelMarker> {
-        self.channel_id.clone()
-    }
-
-    pub fn content(&self) -> &str {
-        self.content.as_ref()
-    }
-
-    pub fn created_at(&self) -> Timestamp {
-        self.created_at
-    }
-
-    pub fn created_by(&self) -> Id<UserMarker> {
-        self.created_by.clone()
-    }
-
-    pub fn created_by_webhook_id(&self) -> Option<Id<WebhookMarker>> {
-        self.created_by_webhook_id.clone()
-    }
-
-    pub fn embeds(&self) -> Option<Vec<embed::ChatEmbed>> {
-        self.embeds.clone()
-    }
-
-    pub fn id(&self) -> Id<MessageMarker> {
-        self.id.clone()
-    }
-
-    pub fn is_private(&self) -> Option<bool> {
-        self.is_private
-    }
-
-    pub fn is_silent(&self) -> Option<bool> {
-        self.is_silent
-    }
-
-    pub fn reply_message_ids(&self) -> Option<Vec<Id<MessageMarker>>> {
-        self.reply_message_ids.clone()
-    }
-
-    pub fn server_id(&self) -> Id<ServerMarker> {
-        self.server_id.clone()
-    }
-
-    pub fn r#type(&self) -> ChatMessageType {
-        self.r#type
-    }
-
-    pub fn updated_at(&self) -> Option<Timestamp> {
-        self.updated_at
-    }
+    pub channel_id: Id<ChannelMarker>,
+    pub content: String,
+    pub created_at: Timestamp,
+    pub created_by: Id<UserMarker>,
+    pub created_by_webhook_id: Option<Id<WebhookMarker>>,
+    pub embeds: Option<Vec<embed::ChatEmbed>>,
+    pub id: Id<MessageMarker>,
+    pub is_private: Option<bool>,
+    pub is_silent: Option<bool>,
+    pub mentions: Mentions,
+    pub reply_message_ids: Option<Vec<Id<MessageMarker>>>,
+    pub server_id: Id<ServerMarker>,
+    pub r#type: ChatMessageType,
+    pub updated_at: Option<Timestamp>,
 }
 
 /// Represents the type of a chat message.

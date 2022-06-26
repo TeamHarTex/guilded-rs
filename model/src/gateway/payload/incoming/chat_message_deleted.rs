@@ -8,16 +8,6 @@ use crate::messaging::deleted_message::DeletedChatMessage;
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ChatMessageDeleted {
-    message: DeletedChatMessage,
-    server_id: Id<ServerMarker>,
-}
-
-impl ChatMessageDeleted {
-    pub fn message(&self) -> DeletedChatMessage {
-        self.message.clone()
-    }
-
-    pub fn server_id(&self) -> Id<ServerMarker> {
-        self.server_id.clone()
-    }
+    pub message: DeletedChatMessage,
+    pub server_id: Id<ServerMarker>,
 }

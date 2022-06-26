@@ -12,31 +12,9 @@ pub mod ban;
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ServerMember {
-    is_owner: Option<bool>,
-    joined_at: Timestamp,
-    nickname: Option<String>,
-    role_ids: Vec<Id<RoleMarker>>,
-    user: User,
-}
-
-impl ServerMember {
-    pub fn is_owner(&self) -> Option<bool> {
-        self.is_owner
-    }
-
-    pub fn joined_at(&self) -> Timestamp {
-        self.joined_at
-    }
-
-    pub fn nickname(&self) -> Option<&str> {
-        self.nickname.as_deref()
-    }
-
-    pub fn role_ids(&self) -> Vec<Id<RoleMarker>> {
-        self.role_ids.clone()
-    }
-
-    pub fn user(&self) -> User {
-        self.user.clone()
-    }
+    pub is_owner: Option<bool>,
+    pub joined_at: Timestamp,
+    pub nickname: Option<String>,
+    pub role_ids: Vec<Id<RoleMarker>>,
+    pub user: User,
 }

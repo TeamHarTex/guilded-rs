@@ -14,76 +14,18 @@ use crate::list::note;
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct PartialListItem {
-    channel_id: Id<ChannelMarker>,
-    completed_at: Option<Timestamp>,
-    completed_by: Option<Id<UserMarker>>,
-    created_at: Timestamp,
-    created_by: Id<UserMarker>,
-    created_by_webhook_id: Option<Id<WebhookMarker>>,
-    id: Id<ListItemMarker>,
-    mentions: Option<Mentions>,
-    message: String,
-    note: Option<note::partial::PartialListItemNote>,
-    parent_list_item_id: Id<ListItemMarker>,
-    server_id: Id<ServerMarker>,
-    updated_at: Option<Timestamp>,
-    updated_by: Option<Id<UserMarker>>,
-}
-
-impl PartialListItem {
-    pub fn channel_id(&self) -> Id<ChannelMarker> {
-        self.channel_id.clone()
-    }
-
-    pub fn completed_at(&self) -> Option<Timestamp> {
-        self.completed_at
-    }
-
-    pub fn completed_by(&self) -> Option<Id<UserMarker>> {
-        self.completed_by.clone()
-    }
-
-    pub fn created_at(&self) -> Timestamp {
-        self.created_at
-    }
-
-    pub fn created_by(&self) -> Id<UserMarker> {
-        self.created_by.clone()
-    }
-
-    pub fn created_by_webhook_id(&self) -> Option<Id<WebhookMarker>> {
-        self.created_by_webhook_id.clone()
-    }
-
-    pub fn id(&self) -> Id<ListItemMarker> {
-        self.id.clone()
-    }
-
-    pub fn mentions(&self) -> Option<Mentions> {
-        self.mentions.clone()
-    }
-
-    pub fn message(&self) -> String {
-        self.message.clone()
-    }
-
-    pub fn note(&self) -> Option<note::partial::PartialListItemNote> {
-        self.note.clone()
-    }
-
-    pub fn parent_list_item_id(&self) -> Id<ListItemMarker> {
-        self.parent_list_item_id.clone()
-    }
-
-    pub fn server_id(&self) -> Id<ServerMarker> {
-        self.server_id.clone()
-    }
-
-    pub fn updated_at(&self) -> Option<Timestamp> {
-        self.updated_at
-    }
-
-    pub fn updated_by(&self) -> Option<Id<UserMarker>> {
-        self.updated_by.clone()
-    }
+    pub channel_id: Id<ChannelMarker>,
+    pub completed_at: Option<Timestamp>,
+    pub completed_by: Option<Id<UserMarker>>,
+    pub created_at: Timestamp,
+    pub created_by: Id<UserMarker>,
+    pub created_by_webhook_id: Option<Id<WebhookMarker>>,
+    pub id: Id<ListItemMarker>,
+    pub mentions: Option<Mentions>,
+    pub message: String,
+    pub note: Option<note::partial::PartialListItemNote>,
+    pub parent_list_item_id: Id<ListItemMarker>,
+    pub server_id: Id<ServerMarker>,
+    pub updated_at: Option<Timestamp>,
+    pub updated_by: Option<Id<UserMarker>>,
 }

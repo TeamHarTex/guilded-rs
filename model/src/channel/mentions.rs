@@ -12,11 +12,11 @@ use crate::id::{
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Mentions {
-    channels: Option<Vec<ChannelMention>>,
-    everyone: Option<bool>,
-    here: Option<bool>,
-    roles: Option<Vec<RoleMention>>,
-    users: Option<Vec<UserMention>>,
+    pub channels: Option<Vec<ChannelMention>>,
+    pub everyone: Option<bool>,
+    pub here: Option<bool>,
+    pub roles: Option<Vec<RoleMention>>,
+    pub users: Option<Vec<UserMention>>,
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -55,27 +55,5 @@ impl Deref for UserMention {
 
     fn deref(&self) -> &Self::Target {
         &self.id
-    }
-}
-
-impl Mentions {
-    pub fn channels(&self) -> Option<Vec<ChannelMention>> {
-        self.channels.clone()
-    }
-
-    pub fn everyone(&self) -> Option<bool> {
-        self.everyone
-    }
-
-    pub fn here(&self) -> Option<bool> {
-        self.here
-    }
-
-    pub fn roles(&self) -> Option<Vec<RoleMention>> {
-        self.roles.clone()
-    }
-
-    pub fn users(&self) -> Option<Vec<UserMention>> {
-        self.users.clone()
     }
 }
