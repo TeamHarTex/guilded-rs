@@ -45,7 +45,7 @@ pub fn validate_color_range(colour: u32) -> ValidationResult<EmbedValidationErro
     }
 
     Err(EmbedValidationError {
-        r#type: EmbedValidationErrorType::InvalidColourValue,
+        r#type: EmbedValidationErrorType::InvalidColorValue,
     })
 }
 
