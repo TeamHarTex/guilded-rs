@@ -88,14 +88,14 @@ impl TryInto<Request> for ChannelMessageCreate<'_> {
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
 struct ChannelMessageCreateFields<'a> {
-    #[serde::skip_serializing_if = "Option::is_none"]
+    #[serde(skip_serializing_if = "Option::is_none")]
     content: Option<&'a str>,
-    #[serde::skip_serializing_if = "Option::is_none"]
+    #[serde(skip_serializing_if = "Option::is_none")]
     embeds: Option<Vec<ChatEmbed>>,
-    #[serde::skip_serializing_if = "Option::is_none"]
+    #[serde(skip_serializing_if = "Option::is_none")]
     is_private: Option<bool>,
-    #[serde::skip_serializing_if = "Option::is_none"]
+    #[serde(skip_serializing_if = "Option::is_none")]
     is_silent: Option<bool>,
-    #[serde::skip_serializing_if = "Option::is_none"]
+    #[serde(skip_serializing_if = "Option::is_none")]
     reply_message_ids: Option<Vec<Id<MessageMarker>>>,
 }
