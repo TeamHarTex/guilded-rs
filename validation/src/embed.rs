@@ -39,8 +39,8 @@ pub const EMBED_COLOR_WHITE: u32 = 0x000000;
 pub const EMBED_DESCRIPTION_MAX_LENGTH: usize = 2048;
 pub const EMBED_TITLE_MAX_LENGTH: usize = 256;
 
-pub fn validate_color_range(colour: u32) -> ValidationResult<EmbedValidationError> {
-    if (EMBED_COLOR_WHITE..=EMBED_COLOR_BLACK).contains(&colour) {
+pub fn validate_color_range(color: u32) -> ValidationResult<EmbedValidationError> {
+    if (EMBED_COLOR_WHITE..=EMBED_COLOR_BLACK).contains(&color) {
         return Ok(());
     }
 
