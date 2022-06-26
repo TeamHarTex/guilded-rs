@@ -12,7 +12,7 @@ version = "0.1.0-dev.9"
 
 [dependencies]
 guilded_model = "0.1.0-dev.18"
-guilded_validation = "0.1.0-dev.4"
+guilded_validation = "0.1.0-dev.5"
 
 hyper = { default-features = false, features = [ "client", "http1", "http2", "runtime" ], version = "0.14.19" }
 hyper-rustls = { default-features = false, optional = true, features = [ "http1", "http2" ], version = "0.23.0" }

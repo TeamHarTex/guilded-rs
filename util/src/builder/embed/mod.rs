@@ -26,6 +26,17 @@ impl ChatEmbedBuilder {
         self.0
     }
 
+    pub fn description(
+        mut self,
+        description: impl Into<String>,
+    ) -> Result<Self, EmbedValidationError> {
+        let description = description.into();
+        embed::validate_description_length(&description)?;
+
+        self.0.description.replace(description);
+        Ok(self)
+    }
+
     pub fn title(mut self, title: impl Into<String>) -> Result<Self, EmbedValidationError> {
         let title = title.into();
         embed::validate_title_length(&title)?;
