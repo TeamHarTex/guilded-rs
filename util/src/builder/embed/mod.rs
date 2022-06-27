@@ -1,5 +1,8 @@
+use guilded_model::datetime::Timestamp;
 use guilded_model::messaging::embed::ChatEmbed;
 use guilded_validation::embed::{self, EmbedValidationError};
+
+pub mod footer;
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 #[must_use = "must be built into an embed"]
@@ -42,6 +45,11 @@ impl ChatEmbedBuilder {
 
         self.0.description.replace(description);
         Ok(self)
+    }
+
+    pub fn timestamp(mut self, timestamp: Timestamp) -> Self {
+        self.0.timestamp.replace(timestamp);
+        self
     }
 
     pub fn title(mut self, title: impl Into<String>) -> Result<Self, EmbedValidationError> {

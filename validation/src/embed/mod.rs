@@ -3,6 +3,8 @@ use std::fmt::{self, Display, Formatter};
 
 use crate::ValidationResult;
 
+pub mod footer;
+
 #[derive(Debug)]
 pub struct EmbedValidationError {
     r#type: EmbedValidationErrorType,
@@ -11,9 +13,7 @@ pub struct EmbedValidationError {
 impl Display for EmbedValidationError {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         match self.r#type {
-            EmbedValidationErrorType::InvalidColorValue => {
-                f.write_str("color value out of range")
-            }
+            EmbedValidationErrorType::InvalidColorValue => f.write_str("color value out of range"),
             EmbedValidationErrorType::InvalidDescriptionLength => {
                 f.write_str("invalid length of embed description")
             }
