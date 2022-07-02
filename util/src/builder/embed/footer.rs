@@ -15,4 +15,17 @@ impl ChatEmbedFooterBuilder {
             text,
         }))
     }
+
+    #[must_use = "should be used as part of an embed"]
+    pub fn build(self) -> ChatEmbedFooter {
+        self.0
+    }
+
+    pub fn icon_url(mut self, icon_url: impl Into<String>) -> Result<Self, EmbedFooterValidationError> {
+        let icon_url = icon_url.into();
+        footer::validate_footer_icon_url_length(&icon_url)?;
+
+        self.0.icon_url.replace(icon_url);
+        Ok(self)
+    }
 }
