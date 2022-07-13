@@ -9,6 +9,8 @@ use crate::id::{
     Id,
 };
 
+pub mod rsvp;
+
 /// Represents a calendar event.
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -25,6 +27,7 @@ pub struct CalendarEvent {
     pub location: Option<String>,
     pub mentions: Option<Mentions>,
     pub name: String,
+    pub rsvp_limit: Option<u64>,
     pub server_id: Id<ServerMarker>,
     pub starts_at: Timestamp,
     pub url: Option<String>,
