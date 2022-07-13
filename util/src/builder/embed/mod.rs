@@ -1,5 +1,5 @@
 use guilded_model::datetime::Timestamp;
-use guilded_model::messaging::embed::ChatEmbed;
+use guilded_model::messaging::embed::{ChatEmbed, ChatEmbedFooter};
 use guilded_validation::embed::{self, EmbedValidationError};
 
 pub mod footer;
@@ -45,6 +45,11 @@ impl ChatEmbedBuilder {
 
         self.0.description.replace(description);
         Ok(self)
+    }
+
+    pub fn footer(mut self, footer: ChatEmbedFooter) -> Self {
+        self.0.footer.replace(footer);
+        self
     }
 
     pub fn timestamp(mut self, timestamp: Timestamp) -> Self {
