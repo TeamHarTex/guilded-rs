@@ -163,7 +163,7 @@ impl IdValue {
 
     pub fn unwrap_uuid(self) -> String {
         if let Self::Uuid(id) = self {
-            return id.to_hyphenated().to_string();
+            return id.hyphenated().to_string();
         }
 
         panic!("id not uuid")
