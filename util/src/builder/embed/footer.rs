@@ -21,7 +21,10 @@ impl ChatEmbedFooterBuilder {
         self.0
     }
 
-    pub fn icon_url(mut self, icon_url: impl Into<String>) -> Result<Self, EmbedFooterValidationError> {
+    pub fn icon_url(
+        mut self,
+        icon_url: impl Into<String>,
+    ) -> Result<Self, EmbedFooterValidationError> {
         let icon_url = icon_url.into();
         footer::validate_footer_icon_url_length(&icon_url)?;
 

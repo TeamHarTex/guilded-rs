@@ -22,7 +22,7 @@ pub struct ForumTopic {
     pub created_by: Id<UserMarker>,
     pub created_by_webhook_id: Option<Id<WebhookMarker>>,
     pub id: Id<ForumThreadMarker>,
-    pub mentions: Option<Mentions>
+    pub mentions: Option<Mentions>,
     pub server_id: Id<ServerMarker>,
     pub title: Option<String>,
     pub updated_at: Option<Timestamp>,

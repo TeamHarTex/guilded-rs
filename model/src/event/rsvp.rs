@@ -1,9 +1,12 @@
 //! The calendar event RSVP object.
 
-use serde::{Deserialize, Serialize};
 use crate::datetime::Timestamp;
-use crate::id::{marker::{CalendarEventMarker, ChannelMarker, ServerMarker, UserMarker}, Id};
+use crate::id::{
+    marker::{CalendarEventMarker, ChannelMarker, ServerMarker, UserMarker},
+    Id,
+};
 use crate::user::User;
+use serde::{Deserialize, Serialize};
 
 /// Represents a calendar event RSVP.
 #[derive(Clone, Debug, Deserialize, Serialize)]
