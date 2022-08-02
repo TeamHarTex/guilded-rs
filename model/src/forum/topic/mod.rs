@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 use crate::channel::mentions::Mentions;
 use crate::datetime::Timestamp;
 use crate::id::{
-    marker::{ChannelMarker, ForumThreadMarker, ServerMarker, UserMarker, WebhookMarker},
+    marker::{ChannelMarker, ForumTopicMarker, ServerMarker, UserMarker, WebhookMarker},
     Id,
 };
 
@@ -21,7 +21,7 @@ pub struct ForumTopic {
     pub created_at: Timestamp,
     pub created_by: Id<UserMarker>,
     pub created_by_webhook_id: Option<Id<WebhookMarker>>,
-    pub id: Id<ForumThreadMarker>,
+    pub id: Id<ForumTopicMarker>,
     pub mentions: Option<Mentions>,
     pub server_id: Id<ServerMarker>,
     pub title: Option<String>,

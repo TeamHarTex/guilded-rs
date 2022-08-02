@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::datetime::Timestamp;
 use crate::id::{
-    marker::{ChannelMarker, ForumThreadMarker, ServerMarker, UserMarker, WebhookMarker},
+    marker::{ChannelMarker, ForumTopicMarker, ServerMarker, UserMarker, WebhookMarker},
     Id,
 };
 
@@ -17,7 +17,7 @@ pub struct PartialForumTopic {
     pub created_at: Timestamp,
     pub created_by: Id<UserMarker>,
     pub created_by_webhook_id: Option<Id<WebhookMarker>>,
-    pub id: Id<ForumThreadMarker>,
+    pub id: Id<ForumTopicMarker>,
     pub server_id: Id<ServerMarker>,
     pub title: Option<String>,
     pub updated_at: Option<Timestamp>,

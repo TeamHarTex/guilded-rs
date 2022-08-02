@@ -1,6 +1,6 @@
 //! HTTP Routes of the Guilded API.
 
-use std::fmt::{Display, Formatter, Result as FmtResult};
+use std::fmt::{Display, Formatter, Result as FmtResult, Write};
 
 use guilded_model::datetime::Timestamp;
 
@@ -50,16 +50,6 @@ pub enum Route<'a> {
         channel_id: &'a str,
         message_id: &'a str,
     },
-    ServerChannelCreate,
-    ServerChannelDelete {
-        channel_id: &'a str,
-    },
-    ServerChannelRead {
-        channel_id: &'a str,
-    },
-    ServerChannelUpdate {
-        channel_id: &'a str,
-    },
     ContentReactionCreate {
         channel_id: &'a str,
         content_id: &'a str,
@@ -90,6 +80,21 @@ pub enum Route<'a> {
     },
     ForumTopicCreate {
         channel_id: &'a str,
+    },
+    ForumTopicDelete {
+        channel_id: &'a str,
+        forum_topic_id: u32,
+    },
+    ForumTopicRead {
+        channel_id: &'a str,
+        forum_topic_id: u32,
+    },
+    ForumTopicReadMany {
+        channel_id: &'a str,
+    },
+    ForumTopicUpdate {
+        channel_id: &'a str,
+        forum_topic_id: u32,
     },
     GroupMembershipCreate {
         group_id: &'a str,
@@ -151,6 +156,16 @@ pub enum Route<'a> {
     RoleMembershipReadMany {
         server_id: &'a str,
         user_id: &'a str,
+    },
+    ServerChannelCreate,
+    ServerChannelDelete {
+        channel_id: &'a str,
+    },
+    ServerChannelRead {
+        channel_id: &'a str,
+    },
+    ServerChannelUpdate {
+        channel_id: &'a str,
     },
     ServerMemberBanCreate {
         server_id: &'a str,
@@ -215,14 +230,16 @@ impl<'a> Route<'a> {
             Self::CalendarEventRead { .. }
             | Self::CalendarEventReadMany { .. }
             | Self::ChannelMessageRead { .. }
-            | Self::ServerChannelRead { .. }
             | Self::ChannelMessageReadMany { .. }
             | Self::DocRead { .. }
             | Self::DocReadMany { .. }
+            | Self::ForumTopicRead { .. }
+            | Self::ForumTopicReadMany { .. }
             | Self::ListItemRead { .. }
             | Self::ListItemReadMany { .. }
             | Self::MemberSocialLinkRead { .. }
             | Self::RoleMembershipReadMany { .. }
+            | Self::ServerChannelRead { .. }
             | Self::ServerMemberBanRead { .. }
             | Self::ServerMemberBanReadMany { .. }
             | Self::ServerMemberRead { .. }
@@ -231,21 +248,23 @@ impl<'a> Route<'a> {
             | Self::WebhookRead { .. }
             | Self::WebhookReadMany { .. } => Method::Get,
             Self::CalendarEventDelete { .. }
-            | Self::ServerChannelDelete { .. }
             | Self::ChannelMessageDelete { .. }
             | Self::ContentReactionDelete { .. }
             | Self::DocDelete { .. }
+            | Self::ForumTopicDelete { .. }
             | Self::GroupMembershipDelete { .. }
             | Self::ListItemCompleteDelete { .. }
             | Self::ListItemDelete { .. }
             | Self::MemberNicknameDelete { .. }
             | Self::RoleMembershipDelete { .. }
+            | Self::ServerChannelDelete { .. }
             | Self::ServerMemberDelete { .. }
             | Self::ServerMemberBanDelete { .. }
             | Self::WebhookDelete { .. } => Method::Delete,
-            Self::CalendarEventUpdate { .. } | Self::ServerChannelUpdate { .. } => Method::Patch,
+            Self::CalendarEventUpdate { .. }
+            | Self::ForumTopicUpdate { .. }
+            | Self::ServerChannelUpdate { .. } => Method::Patch,
             Self::CalendarEventCreate { .. }
-            | Self::ServerChannelCreate
             | Self::ChannelMessageCreate { .. }
             | Self::ContentReactionCreate { .. }
             | Self::DocCreate { .. }
@@ -254,6 +273,7 @@ impl<'a> Route<'a> {
             | Self::ListItemCreate { .. }
             | Self::ListItemCompleteCreate { .. }
             | Self::RoleMembershipCreate { .. }
+            | Self::ServerChannelCreate
             | Self::ServerMemberBanCreate { .. }
             | Self::ServerXpForRoleCreate { .. }
             | Self::ServerXpForUserCreate { .. }
@@ -318,13 +338,6 @@ impl Display for Route<'_> {
                 }
 
                 Ok(())
-            }
-            Self::ServerChannelCreate => f.write_str("channels"),
-            Self::ServerChannelDelete { channel_id }
-            | Self::ServerChannelRead { channel_id }
-            | Self::ServerChannelUpdate { channel_id } => {
-                f.write_str("channels/")?;
-                Display::fmt(channel_id, f)
             }
             Self::ChannelMessageCreate { channel_id } => {
                 f.write_str("channels/")?;
@@ -413,10 +426,19 @@ impl Display for Route<'_> {
                 f.write_str("/docs/")?;
                 Display::fmt(doc_id, f)
             }
-            Self::ForumTopicCreate { channel_id } => {
+            Self::ForumTopicCreate { channel_id }
+            | Self::ForumTopicReadMany { channel_id } => {
                 f.write_str("channels/")?;
                 Display::fmt(channel_id, f)?;
                 f.write_str("/topics")
+            }
+            Self::ForumTopicDelete { channel_id, forum_topic_id }
+            | Self::ForumTopicRead { channel_id, forum_topic_id }
+            | Self::ForumTopicUpdate { channel_id, forum_topic_id } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+                f.write_str("/topics")?;
+                Display::fmt(forum_topic_id, f)
             }
             Self::GroupMembershipCreate { group_id, user_id }
             | Self::GroupMembershipDelete { group_id, user_id } => {
@@ -504,6 +526,13 @@ impl Display for Route<'_> {
                 f.write_str("/members/")?;
                 Display::fmt(user_id, f)?;
                 f.write_str("/roles")
+            }
+            Self::ServerChannelCreate => f.write_str("channels"),
+            Self::ServerChannelDelete { channel_id }
+            | Self::ServerChannelRead { channel_id }
+            | Self::ServerChannelUpdate { channel_id } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)
             }
             Self::ServerMemberBanCreate { server_id, user_id }
             | Self::ServerMemberBanDelete { server_id, user_id }
