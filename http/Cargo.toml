@@ -14,13 +14,13 @@ version = "0.1.0-dev.9"
 guilded_model = "0.1.0-dev.20"
 guilded_validation = "0.1.0-dev.10"
 
-hyper = { default-features = false, features = [ "client", "http1", "http2", "runtime" ], version = "0.14.19" }
+hyper = { default-features = false, features = [ "client", "http1", "http2", "runtime" ], version = "0.14.20" }
 hyper-rustls = { default-features = false, optional = true, features = [ "http1", "http2" ], version = "0.23.0" }
 hyper-tls = { default-features = false, optional = true, version = "0.5.0" }
 hyper-trust-dns = { default-features = false, optional = true, version = "0.4.2" }
-serde = "1.0.137"
-serde_json = "1.0.81"
-tokio = { version = "1.19.2", default-features = false, features = ["time"] }
+serde = "1.0.141"
+serde_json = "1.0.82"
+tokio = { version = "1.20.1", default-features = false, features = ["time"] }
 
 [features]
 default = [ "rustls-native-roots" ]

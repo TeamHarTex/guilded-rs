@@ -426,15 +426,23 @@ impl Display for Route<'_> {
                 f.write_str("/docs/")?;
                 Display::fmt(doc_id, f)
             }
-            Self::ForumTopicCreate { channel_id }
-            | Self::ForumTopicReadMany { channel_id } => {
+            Self::ForumTopicCreate { channel_id } | Self::ForumTopicReadMany { channel_id } => {
                 f.write_str("channels/")?;
                 Display::fmt(channel_id, f)?;
                 f.write_str("/topics")
             }
-            Self::ForumTopicDelete { channel_id, forum_topic_id }
-            | Self::ForumTopicRead { channel_id, forum_topic_id }
-            | Self::ForumTopicUpdate { channel_id, forum_topic_id } => {
+            Self::ForumTopicDelete {
+                channel_id,
+                forum_topic_id,
+            }
+            | Self::ForumTopicRead {
+                channel_id,
+                forum_topic_id,
+            }
+            | Self::ForumTopicUpdate {
+                channel_id,
+                forum_topic_id,
+            } => {
                 f.write_str("channels/")?;
                 Display::fmt(channel_id, f)?;
                 f.write_str("/topics")?;
