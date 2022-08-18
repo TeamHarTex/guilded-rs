@@ -1,6 +1,8 @@
 use guilded_model::datetime::Timestamp;
-use guilded_model::messaging::embed::{ChatEmbed, ChatEmbedFooter};
+use guilded_model::messaging::embed::{ChatEmbed, ChatEmbedFooter, ChatEmbedThumbnail};
 use guilded_validation::embed::{self, EmbedValidationError};
+use guilded_validation::embed::footer::EmbedFooterValidationError;
+use guilded_validation::embed::thumbnail::EmbedThumbnailValidationError;
 
 pub mod footer;
 pub mod thumbnail;
@@ -48,9 +50,24 @@ impl ChatEmbedBuilder {
         Ok(self)
     }
 
-    pub fn footer(mut self, footer: ChatEmbedFooter) -> Self {
+    pub fn footer(mut self, footer: ChatEmbedFooter) -> Result<Self, EmbedFooterValidationError> {
+        if let Some(icon_url) = &footer.icon_url {
+            embed::footer::validate_footer_icon_url_length(icon_url)?;
+        }
+
+        embed::footer::validate_footer_text_length(&footer.text)?;
+
         self.0.footer.replace(footer);
-        self
+        Ok(self)
+    }
+
+    pub fn thumbnail(mut self, thumbnail: ChatEmbedThumbnail) -> Result<Self, EmbedThumbnailValidationError> {
+        if let Some(url) = &thumbnail.url {
+            embed::thumbnail::validate_thumbnail_length(url)?;
+        }
+
+        self.0.thumbnail.replace(thumbnail);
+        Ok(self)
     }
 
     pub fn timestamp(mut self, timestamp: Timestamp) -> Self {
