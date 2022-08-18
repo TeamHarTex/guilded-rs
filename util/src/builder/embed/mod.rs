@@ -3,6 +3,7 @@ use guilded_model::messaging::embed::{ChatEmbed, ChatEmbedFooter};
 use guilded_validation::embed::{self, EmbedValidationError};
 
 pub mod footer;
+pub mod thumbnail;
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 #[must_use = "must be built into an embed"]

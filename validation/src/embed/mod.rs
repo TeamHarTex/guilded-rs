@@ -4,6 +4,7 @@ use std::fmt::{self, Display, Formatter};
 use crate::ValidationResult;
 
 pub mod footer;
+pub mod thumbnail;
 
 #[derive(Debug)]
 pub struct EmbedValidationError {
