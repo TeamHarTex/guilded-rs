@@ -4,7 +4,6 @@ use std::fmt::{self, Display, Formatter};
 use crate::ValidationResult;
 
 pub mod footer;
-pub mod image;
 pub mod thumbnail;
 
 #[derive(Debug)]
