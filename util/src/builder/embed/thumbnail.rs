@@ -6,9 +6,7 @@ pub struct ChatEmbedThumbnailBuilder(ChatEmbedThumbnail);
 
 impl ChatEmbedThumbnailBuilder {
     pub fn new() -> Self {
-        Self(ChatEmbedThumbnail {
-            url: None
-        })
+        Self(ChatEmbedThumbnail { url: None })
     }
 
     #[must_use = "should be used as part of an embed"]

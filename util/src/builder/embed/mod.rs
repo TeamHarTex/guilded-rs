@@ -1,8 +1,10 @@
 use guilded_model::datetime::Timestamp;
-use guilded_model::messaging::embed::{ChatEmbed, ChatEmbedFooter, ChatEmbedThumbnail};
-use guilded_validation::embed::{self, EmbedValidationError};
-use guilded_validation::embed::footer::EmbedFooterValidationError;
-use guilded_validation::embed::thumbnail::EmbedThumbnailValidationError;
+use guilded_model::messaging::embed::{
+    ChatEmbed, ChatEmbedFooter, ChatEmbedImage, ChatEmbedThumbnail,
+};
+use guilded_validation::embed::footer::ChatEmbedFooterValidationError;
+use guilded_validation::embed::thumbnail::ChatEmbedThumbnailValidationError;
+use guilded_validation::embed::{self, ChatEmbedValidationError};
 
 pub mod footer;
 pub mod thumbnail;
@@ -32,7 +34,7 @@ impl ChatEmbedBuilder {
         self.0
     }
 
-    pub fn color(mut self, color: u32) -> Result<Self, EmbedValidationError> {
+    pub fn color(mut self, color: u32) -> Result<Self, ChatEmbedValidationError> {
         embed::validate_color_range(color)?;
 
         self.0.color.replace(color);
@@ -50,7 +52,10 @@ impl ChatEmbedBuilder {
         Ok(self)
     }
 
-    pub fn footer(mut self, footer: ChatEmbedFooter) -> Result<Self, EmbedFooterValidationError> {
+    pub fn footer(
+        mut self,
+        footer: ChatEmbedFooter,
+    ) -> Result<Self, ChatEmbedFooterValidationError> {
         if let Some(icon_url) = &footer.icon_url {
             embed::footer::validate_footer_icon_url_length(icon_url)?;
         }
@@ -61,7 +66,12 @@ impl ChatEmbedBuilder {
         Ok(self)
     }
 
-    pub fn thumbnail(mut self, thumbnail: ChatEmbedThumbnail) -> Result<Self, EmbedThumbnailValidationError> {
+    pub fn image(mut self, image: ChatEmbedImage) -> Self {}
+
+    pub fn thumbnail(
+        mut self,
+        thumbnail: ChatEmbedThumbnail,
+    ) -> Result<Self, ChatEmbedThumbnailValidationError> {
         if let Some(url) = &thumbnail.url {
             embed::thumbnail::validate_thumbnail_length(url)?;
         }
@@ -75,7 +85,7 @@ impl ChatEmbedBuilder {
         self
     }
 
-    pub fn title(mut self, title: impl Into<String>) -> Result<Self, EmbedValidationError> {
+    pub fn title(mut self, title: impl Into<String>) -> Result<Self, ChatEmbedValidationError> {
         let title = title.into();
         embed::validate_title_length(&title)?;
 

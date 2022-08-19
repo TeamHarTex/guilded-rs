@@ -14,7 +14,9 @@ pub struct ChatEmbedValidationError {
 impl Display for ChatEmbedValidationError {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         match self.r#type {
-            ChatEmbedValidationErrorType::InvalidColorValue => f.write_str("color value out of range"),
+            ChatEmbedValidationErrorType::InvalidColorValue => {
+                f.write_str("color value out of range")
+            }
             ChatEmbedValidationErrorType::InvalidDescriptionLength => {
                 f.write_str("invalid length of embed description")
             }
