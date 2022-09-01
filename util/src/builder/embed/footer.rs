@@ -1,12 +1,12 @@
 use guilded_model::messaging::embed::ChatEmbedFooter;
-use guilded_validation::embed::footer::{self, EmbedFooterValidationError};
+use guilded_validation::embed::footer::{self, ChatEmbedFooterValidationError};
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 #[must_use = "must be built into an embed footer"]
 pub struct ChatEmbedFooterBuilder(ChatEmbedFooter);
 
 impl ChatEmbedFooterBuilder {
-    pub fn new(text: impl Into<String>) -> Result<Self, EmbedFooterValidationError> {
+    pub fn new(text: impl Into<String>) -> Result<Self, ChatEmbedFooterValidationError> {
         let text = text.into();
         footer::validate_footer_text_length(&text)?;
 
@@ -24,7 +24,7 @@ impl ChatEmbedFooterBuilder {
     pub fn icon_url(
         mut self,
         icon_url: impl Into<String>,
-    ) -> Result<Self, EmbedFooterValidationError> {
+    ) -> Result<Self, ChatEmbedFooterValidationError> {
         let icon_url = icon_url.into();
         footer::validate_footer_icon_url_length(&icon_url)?;
 
