@@ -3,6 +3,7 @@ use guilded_model::messaging::embed::{
     ChatEmbed, ChatEmbedFooter, ChatEmbedImage, ChatEmbedThumbnail,
 };
 use guilded_validation::embed::footer::ChatEmbedFooterValidationError;
+use guilded_validation::embed::image::ChatEmbedImageValidationError;
 use guilded_validation::embed::thumbnail::ChatEmbedThumbnailValidationError;
 use guilded_validation::embed::{self, ChatEmbedValidationError};
 
@@ -66,7 +67,14 @@ impl ChatEmbedBuilder {
         Ok(self)
     }
 
-    pub fn image(mut self, image: ChatEmbedImage) -> Self {}
+    pub fn image(mut self, image: ChatEmbedImage) -> Result<Self, ChatEmbedImageValidationError> {
+        if let Some(url) = &image.url {
+            embed::image::validate_image_length(url)?;
+        }
+
+        self.0.image.replace(image);
+        Ok(self)
+    }
 
     pub fn thumbnail(
         mut self,
