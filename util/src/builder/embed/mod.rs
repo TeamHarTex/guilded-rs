@@ -66,7 +66,9 @@ impl ChatEmbedBuilder {
         Ok(self)
     }
 
-    pub fn image(mut self, image: ChatEmbedImage) -> Self {}
+    pub fn image(mut self, image: ChatEmbedImage) -> Self {
+
+    }
 
     pub fn thumbnail(
         mut self,
