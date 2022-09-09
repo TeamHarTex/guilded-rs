@@ -85,12 +85,20 @@ pub enum Route<'a> {
         channel_id: &'a str,
         forum_topic_id: u32,
     },
+    ForumTopicPin {
+        channel_id: &'a str,
+        forum_topic_id: u32,
+    },
     ForumTopicRead {
         channel_id: &'a str,
         forum_topic_id: u32,
     },
     ForumTopicReadMany {
         channel_id: &'a str,
+    },
+    ForumTopicUnpin {
+        channel_id: &'a str,
+        forum_topic_id: u32,
     },
     ForumTopicUpdate {
         channel_id: &'a str,
@@ -252,6 +260,7 @@ impl<'a> Route<'a> {
             | Self::ContentReactionDelete { .. }
             | Self::DocDelete { .. }
             | Self::ForumTopicDelete { .. }
+            | Self::ForumTopicUnpin { .. }
             | Self::GroupMembershipDelete { .. }
             | Self::ListItemCompleteDelete { .. }
             | Self::ListItemDelete { .. }
@@ -280,6 +289,7 @@ impl<'a> Route<'a> {
             | Self::WebhookCreate { .. } => Method::Post,
             Self::ChannelMessageUpdate { .. }
             | Self::DocUpdate { .. }
+            | Self::ForumTopicPin { .. }
             | Self::ListItemUpdate { .. }
             | Self::MemberNicknameUpdate { .. }
             | Self::WebhookUpdate { .. } => Method::Put,
@@ -445,8 +455,22 @@ impl Display for Route<'_> {
             } => {
                 f.write_str("channels/")?;
                 Display::fmt(channel_id, f)?;
-                f.write_str("/topics")?;
+                f.write_str("/topics/")?;
                 Display::fmt(forum_topic_id, f)
+            }
+            Self::ForumTopicPin {
+                channel_id,
+                forum_topic_id,
+            }
+            | Self::ForumTopicUnpin {
+                channel_id,
+                forum_topic_id,
+            } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id)?;
+                f.write_str("/topics/")?;
+                Display::fmt(forum_topic_id, f)?;
+                f.write_str("/pin")
             }
             Self::GroupMembershipCreate { group_id, user_id }
             | Self::GroupMembershipDelete { group_id, user_id } => {
