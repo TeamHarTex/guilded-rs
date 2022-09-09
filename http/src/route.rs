@@ -467,7 +467,7 @@ impl Display for Route<'_> {
                 forum_topic_id,
             } => {
                 f.write_str("channels/")?;
-                Display::fmt(channel_id)?;
+                Display::fmt(channel_id, f)?;
                 f.write_str("/topics/")?;
                 Display::fmt(forum_topic_id, f)?;
                 f.write_str("/pin")
