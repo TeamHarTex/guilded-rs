@@ -15,7 +15,10 @@ impl ChatEmbedThumbnailBuilder {
         self.0
     }
 
-    pub fn url(mut self, url: impl Into<String>) -> Result<Self, ChatEmbedThumbnailValidationError> {
+    pub fn url(
+        mut self,
+        url: impl Into<String>,
+    ) -> Result<Self, ChatEmbedThumbnailValidationError> {
         let url = url.into();
         thumbnail::validate_thumbnail_length(&url)?;
 
