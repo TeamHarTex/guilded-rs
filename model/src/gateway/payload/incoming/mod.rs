@@ -1,5 +1,7 @@
 pub mod calendar_event_created;
 pub mod calendar_event_deleted;
+pub mod calendar_event_rsvp_many_updated;
+pub mod calendar_event_rsvp_updated;
 pub mod calendar_event_updated;
 pub mod chat_message_created;
 pub mod chat_message_deleted;
