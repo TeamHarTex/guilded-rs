@@ -17,6 +17,9 @@ impl Display for ChatEmbedAuthorValidationError {
             ChatEmbedAuthorValidationErrorType::InvalidNameLength => {
                 f.write_str("invalid length of embed author name")
             }
+            ChatEmbedAuthorValidationErrorType::InvalidUrlLength => {
+                f.write_str("invalid length of embed author url")
+            }
         }
     }
 }
