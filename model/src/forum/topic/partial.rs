@@ -18,6 +18,8 @@ pub struct PartialForumTopic {
     pub created_by: Id<UserMarker>,
     pub created_by_webhook_id: Option<Id<WebhookMarker>>,
     pub id: Id<ForumTopicMarker>,
+    pub is_locked: Option<bool>,
+    pub is_pinned: Option<bool>,
     pub server_id: Id<ServerMarker>,
     pub title: Option<String>,
     pub updated_at: Option<Timestamp>,

@@ -22,6 +22,8 @@ pub struct ForumTopic {
     pub created_by: Id<UserMarker>,
     pub created_by_webhook_id: Option<Id<WebhookMarker>>,
     pub id: Id<ForumTopicMarker>,
+    pub is_locked: Option<bool>,
+    pub is_pinned: Option<bool>,
     pub mentions: Option<Mentions>,
     pub server_id: Id<ServerMarker>,
     pub title: Option<String>,
