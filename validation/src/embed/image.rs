@@ -29,9 +29,9 @@ pub enum ChatEmbedImageValidationErrorType {
 pub const EMBED_IMAGE_URL_MAX_LENGTH: usize = 1024;
 
 pub fn validate_image_length(
-    thumbnail_length: impl AsRef<str>,
+    image: impl AsRef<str>,
 ) -> ValidationResult<ChatEmbedImageValidationError> {
-    let length = thumbnail_length.as_ref().chars().count();
+    let length = image.as_ref().chars().count();
 
     if length <= EMBED_IMAGE_URL_MAX_LENGTH {
         return Ok(());

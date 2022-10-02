@@ -66,7 +66,6 @@ pub fn validate_footer_name_length(
     })
 }
 
-
 pub fn validate_footer_url_length(
     url: impl AsRef<str>,
 ) -> ValidationResult<ChatEmbedAuthorValidationError> {

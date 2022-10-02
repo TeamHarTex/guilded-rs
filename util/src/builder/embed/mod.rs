@@ -8,6 +8,7 @@ use guilded_validation::embed::thumbnail::ChatEmbedThumbnailValidationError;
 use guilded_validation::embed::{self, ChatEmbedValidationError};
 
 pub mod footer;
+pub mod image;
 pub mod thumbnail;
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -53,39 +54,19 @@ impl ChatEmbedBuilder {
         Ok(self)
     }
 
-    pub fn footer(
-        mut self,
-        footer: ChatEmbedFooter,
-    ) -> Result<Self, ChatEmbedFooterValidationError> {
-        if let Some(icon_url) = &footer.icon_url {
-            embed::footer::validate_footer_icon_url_length(icon_url)?;
-        }
-
-        embed::footer::validate_footer_text_length(&footer.text)?;
-
+    pub fn footer(mut self, footer: ChatEmbedFooter) -> Self {
         self.0.footer.replace(footer);
-        Ok(self)
+        self
     }
 
-    pub fn image(mut self, image: ChatEmbedImage) -> Result<Self, ChatEmbedImageValidationError> {
-        if let Some(url) = &image.url {
-            embed::image::validate_image_length(url)?;
-        }
-
+    pub fn image(mut self, image: ChatEmbedImage) -> Self {
         self.0.image.replace(image);
-        Ok(self)
+        self
     }
 
-    pub fn thumbnail(
-        mut self,
-        thumbnail: ChatEmbedThumbnail,
-    ) -> Result<Self, ChatEmbedThumbnailValidationError> {
-        if let Some(url) = &thumbnail.url {
-            embed::thumbnail::validate_thumbnail_length(url)?;
-        }
-
+    pub fn thumbnail(mut self, thumbnail: ChatEmbedThumbnail) -> Self {
         self.0.thumbnail.replace(thumbnail);
-        Ok(self)
+        self
     }
 
     pub fn timestamp(mut self, timestamp: Timestamp) -> Self {
