@@ -24,6 +24,25 @@ pub enum Route<'a> {
         channel_id: &'a str,
         limit: Option<u64>,
     },
+    CalendarEventRsvpDelete {
+        calendar_event_id: u32,
+        channel_id: &'a str,
+        user_id: &'a str,
+    },
+    CalendarEventRsvpRead {
+        calendar_event_id: u32,
+        channel_id: &'a str,
+        user_id: &'a str,
+    },
+    CalendarEventRsvpReadMany {
+        calendar_event_id: u32,
+        channel_id: &'a str,
+    },
+    CalendarEventRsvpUpdate {
+        calendar_event_id: u32,
+        channel_id: &'a str,
+        user_id: &'a str,
+    },
     CalendarEventUpdate {
         calendar_event_id: u32,
         channel_id: &'a str,
@@ -85,6 +104,10 @@ pub enum Route<'a> {
         channel_id: &'a str,
         forum_topic_id: u32,
     },
+    ForumTopicLock {
+        channel_id: &'a str,
+        forum_topic_id: u32,
+    },
     ForumTopicPin {
         channel_id: &'a str,
         forum_topic_id: u32,
@@ -95,6 +118,10 @@ pub enum Route<'a> {
     },
     ForumTopicReadMany {
         channel_id: &'a str,
+    },
+    ForumTopicUnlock {
+        channel_id: &'a str,
+        forum_topic_id: u32,
     },
     ForumTopicUnpin {
         channel_id: &'a str,
@@ -237,6 +264,8 @@ impl<'a> Route<'a> {
         match self {
             Self::CalendarEventRead { .. }
             | Self::CalendarEventReadMany { .. }
+            | Self::CalendarEventRsvpRead { .. }
+            | Self::CalendarEventRsvpReadMany { .. }
             | Self::ChannelMessageRead { .. }
             | Self::ChannelMessageReadMany { .. }
             | Self::DocRead { .. }
@@ -256,10 +285,12 @@ impl<'a> Route<'a> {
             | Self::WebhookRead { .. }
             | Self::WebhookReadMany { .. } => Method::Get,
             Self::CalendarEventDelete { .. }
+            | Self::CalendarEventRsvpDelete { .. }
             | Self::ChannelMessageDelete { .. }
             | Self::ContentReactionDelete { .. }
             | Self::DocDelete { .. }
             | Self::ForumTopicDelete { .. }
+            | Self::ForumTopicUnlock { .. }
             | Self::ForumTopicUnpin { .. }
             | Self::GroupMembershipDelete { .. }
             | Self::ListItemCompleteDelete { .. }
@@ -287,8 +318,10 @@ impl<'a> Route<'a> {
             | Self::ServerXpForRoleCreate { .. }
             | Self::ServerXpForUserCreate { .. }
             | Self::WebhookCreate { .. } => Method::Post,
-            Self::ChannelMessageUpdate { .. }
+            Self::CalendarEventRsvpUpdate { .. }
+            | Self::ChannelMessageUpdate { .. }
             | Self::DocUpdate { .. }
+            | Self::ForumTopicLock { .. }
             | Self::ForumTopicPin { .. }
             | Self::ListItemUpdate { .. }
             | Self::MemberNicknameUpdate { .. }
@@ -348,6 +381,25 @@ impl Display for Route<'_> {
                 }
 
                 Ok(())
+            }
+            Self::CalendarEventRsvpRead { calendar_event_id, channel_id, user_id }
+            | Self::CalendarEventRsvpDelete { calendar_event_id, channel_id, user_id }
+            | Self::CalendarEventRsvpUpdate { calendar_event_id, channel_id, user_id } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+                f.write_str("/events/")?;
+                Display::fmt(calendar_event_id, f)?;
+                f.write_str("/rsvps/")?;
+
+                Display::fmt(user_id, f)
+            }
+            Self::CalendarEventRsvpReadMany { calendar_event_id, channel_id } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+                f.write_str("/events/")?;
+                Display::fmt(calendar_event_id, f)?;
+                
+                f.write_str("/rsvps")
             }
             Self::ChannelMessageCreate { channel_id } => {
                 f.write_str("channels/")?;
@@ -457,6 +509,14 @@ impl Display for Route<'_> {
                 Display::fmt(channel_id, f)?;
                 f.write_str("/topics/")?;
                 Display::fmt(forum_topic_id, f)
+            }
+            Self::ForumTopicLock { channel_id, forum_topic_id }
+            | Self::ForumTopicUnlock { channel_id, forum_topic_id } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+                f.write_str("/topics/")?;
+                Display::fmt(forum_topic_id, f)?;
+                f.write_str("/lock")
             }
             Self::ForumTopicPin {
                 channel_id,
