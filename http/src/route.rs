@@ -382,9 +382,21 @@ impl Display for Route<'_> {
 
                 Ok(())
             }
-            Self::CalendarEventRsvpRead { calendar_event_id, channel_id, user_id }
-            | Self::CalendarEventRsvpDelete { calendar_event_id, channel_id, user_id }
-            | Self::CalendarEventRsvpUpdate { calendar_event_id, channel_id, user_id } => {
+            Self::CalendarEventRsvpRead {
+                calendar_event_id,
+                channel_id,
+                user_id,
+            }
+            | Self::CalendarEventRsvpDelete {
+                calendar_event_id,
+                channel_id,
+                user_id,
+            }
+            | Self::CalendarEventRsvpUpdate {
+                calendar_event_id,
+                channel_id,
+                user_id,
+            } => {
                 f.write_str("channels/")?;
                 Display::fmt(channel_id, f)?;
                 f.write_str("/events/")?;
@@ -393,12 +405,15 @@ impl Display for Route<'_> {
 
                 Display::fmt(user_id, f)
             }
-            Self::CalendarEventRsvpReadMany { calendar_event_id, channel_id } => {
+            Self::CalendarEventRsvpReadMany {
+                calendar_event_id,
+                channel_id,
+            } => {
                 f.write_str("channels/")?;
                 Display::fmt(channel_id, f)?;
                 f.write_str("/events/")?;
                 Display::fmt(calendar_event_id, f)?;
-                
+
                 f.write_str("/rsvps")
             }
             Self::ChannelMessageCreate { channel_id } => {
@@ -510,8 +525,14 @@ impl Display for Route<'_> {
                 f.write_str("/topics/")?;
                 Display::fmt(forum_topic_id, f)
             }
-            Self::ForumTopicLock { channel_id, forum_topic_id }
-            | Self::ForumTopicUnlock { channel_id, forum_topic_id } => {
+            Self::ForumTopicLock {
+                channel_id,
+                forum_topic_id,
+            }
+            | Self::ForumTopicUnlock {
+                channel_id,
+                forum_topic_id,
+            } => {
                 f.write_str("channels/")?;
                 Display::fmt(channel_id, f)?;
                 f.write_str("/topics/")?;
