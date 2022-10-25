@@ -24,7 +24,7 @@ pub struct ChatMessage {
     pub id: Id<MessageMarker>,
     pub is_private: Option<bool>,
     pub is_silent: Option<bool>,
-    pub mentions: Mentions,
+    pub mentions: Option<Mentions>,
     pub reply_message_ids: Option<Vec<Id<MessageMarker>>>,
     pub server_id: Id<ServerMarker>,
     pub r#type: ChatMessageType,

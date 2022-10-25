@@ -7,6 +7,7 @@ use crate::id::{marker::RoleMarker, Id};
 use crate::user::User;
 
 pub mod ban;
+pub mod partial;
 
 /// Represents a server member.
 #[derive(Clone, Debug, Deserialize, Serialize)]
