@@ -1,6 +1,6 @@
 [package]
 name = "guilded_validation"
-authors = [ "The HarTex Community" ]
+authors = [ "Team HarTex" ]
 description = """
 Validation utilities for the Guilded-rs Ecosystem.
 """

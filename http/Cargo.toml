@@ -1,6 +1,6 @@
 [package]
 name = "guilded_http"
-authors = [ "The HarTex Community" ]
+authors = [ "Team HarTex" ]
 description = """
 Guilded API HTTP Client for the Guilded-rs ecosystem of crates.
 """

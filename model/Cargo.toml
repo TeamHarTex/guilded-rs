@@ -1,6 +1,6 @@
 [package]
 name = "guilded_model"
-authors = [ "The HarTex Community" ]
+authors = [ "Team HarTex" ]
 description = """
 Guilded API models for the Guilded-rs ecosystem of crates.
 """
