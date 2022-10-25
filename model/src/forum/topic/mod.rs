@@ -9,6 +9,7 @@ use crate::id::{
     Id,
 };
 
+pub mod comment;
 pub mod partial;
 
 /// Represents a forum topic.

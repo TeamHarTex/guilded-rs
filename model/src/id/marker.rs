@@ -37,9 +37,16 @@ pub struct DocumentMarker;
 #[non_exhaustive]
 pub struct EmoteMarker;
 
-/// A marker for forum thread IDs.
+/// A marker for forum thread comment IDs.
 ///
-/// Forum thread IDs on Guilded are unique numerical IDs (for example, `123456`).
+/// Forum topic comment IDs on Guilded are unique numerical IDs (for example, `123456`).
+#[derive(Clone, Copy, Debug)]
+#[non_exhaustive]
+pub struct ForumTopicCommentMarker;
+
+/// A marker for forum topic IDs.
+///
+/// Forum topic IDs on Guilded are unique numerical IDs (for example, `123456`).
 #[derive(Clone, Copy, Debug)]
 #[non_exhaustive]
 pub struct ForumTopicMarker;

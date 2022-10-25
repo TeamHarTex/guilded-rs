@@ -2,6 +2,7 @@
 
 use serde::{Deserialize, Serialize};
 
+use crate::channel::mentions::Mentions;
 use crate::datetime::Timestamp;
 use crate::id::{
     marker::{ChannelMarker, DocumentMarker, ServerMarker, UserMarker},
@@ -17,6 +18,7 @@ pub struct Document {
     pub created_at: Timestamp,
     pub created_by: Id<UserMarker>,
     pub id: Id<DocumentMarker>,
+    pub mentions: Option<Mentions>,
     pub server_id: Id<ServerMarker>,
     pub title: String,
     pub updated_at: Option<Timestamp>,
