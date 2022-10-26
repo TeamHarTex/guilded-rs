@@ -531,17 +531,35 @@ impl Display for Route<'_> {
                 f.write_str("/docs/")?;
                 Display::fmt(doc_id, f)
             }
-            Self::ForumTopicCommentCreate { channel_id, forum_topic_id }
-            | Self::ForumTopicCommentReadMany { channel_id, forum_topic_id } => {
+            Self::ForumTopicCommentCreate {
+                channel_id,
+                forum_topic_id,
+            }
+            | Self::ForumTopicCommentReadMany {
+                channel_id,
+                forum_topic_id,
+            } => {
                 f.write_str("channels/")?;
                 Display::fmt(channel_id, f)?;
                 f.write_str("/topics/")?;
                 Display::fmt(forum_topic_id, f)?;
                 f.write_str("/comments")
             }
-            Self::ForumTopicCommentDelete { channel_id, forum_topic_comment_id, forum_topic_id }
-            | Self::ForumTopicCommentRead { channel_id, forum_topic_comment_id, forum_topic_id }
-            | Self::ForumTopicCommentUpdate { channel_id, forum_topic_comment_id, forum_topic_id } => {
+            Self::ForumTopicCommentDelete {
+                channel_id,
+                forum_topic_comment_id,
+                forum_topic_id,
+            }
+            | Self::ForumTopicCommentRead {
+                channel_id,
+                forum_topic_comment_id,
+                forum_topic_id,
+            }
+            | Self::ForumTopicCommentUpdate {
+                channel_id,
+                forum_topic_comment_id,
+                forum_topic_id,
+            } => {
                 f.write_str("channels/")?;
                 Display::fmt(channel_id, f)?;
                 f.write_str("/topics/")?;

@@ -38,7 +38,7 @@ pub const EMBED_AUTHOR_ICON_URL_MAX_LENGTH: usize = 1024;
 pub const EMBED_AUTHOR_NAME_MAX_LENGTH: usize = 256;
 pub const EMBED_AUTHOR_URL_MAX_LENGTH: usize = 1024;
 
-pub fn validate_footer_icon_url_length(
+pub fn validate_author_icon_url_length(
     icon_url: impl AsRef<str>,
 ) -> ValidationResult<ChatEmbedAuthorValidationError> {
     let length = icon_url.as_ref().chars().count();
@@ -52,7 +52,7 @@ pub fn validate_footer_icon_url_length(
     })
 }
 
-pub fn validate_footer_name_length(
+pub fn validate_author_name_length(
     name: impl AsRef<str>,
 ) -> ValidationResult<ChatEmbedAuthorValidationError> {
     let length = name.as_ref().chars().count();
@@ -66,7 +66,7 @@ pub fn validate_footer_name_length(
     })
 }
 
-pub fn validate_footer_url_length(
+pub fn validate_author_url_length(
     url: impl AsRef<str>,
 ) -> ValidationResult<ChatEmbedAuthorValidationError> {
     let length = url.as_ref().chars().count();

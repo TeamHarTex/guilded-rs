@@ -7,6 +7,7 @@ use guilded_validation::embed::image::ChatEmbedImageValidationError;
 use guilded_validation::embed::thumbnail::ChatEmbedThumbnailValidationError;
 use guilded_validation::embed::{self, ChatEmbedValidationError};
 
+pub mod author;
 pub mod footer;
 pub mod image;
 pub mod thumbnail;
@@ -46,7 +47,7 @@ impl ChatEmbedBuilder {
     pub fn description(
         mut self,
         description: impl Into<String>,
-    ) -> Result<Self, EmbedValidationError> {
+    ) -> Result<Self, ChatEmbedValidationError> {
         let description = description.into();
         embed::validate_description_length(&description)?;
 
