@@ -97,6 +97,29 @@ pub enum Route<'a> {
         channel_id: &'a str,
         doc_id: u32,
     },
+    ForumTopicCommentCreate {
+        channel_id: &'a str,
+        forum_topic_id: u32,
+    },
+    ForumTopicCommentDelete {
+        channel_id: &'a str,
+        forum_topic_comment_id: u32,
+        forum_topic_id: u32,
+    },
+    ForumTopicCommentRead {
+        channel_id: &'a str,
+        forum_topic_comment_id: u32,
+        forum_topic_id: u32,
+    },
+    ForumTopicCommentReadMany {
+        channel_id: &'a str,
+        forum_topic_id: u32,
+    },
+    ForumTopicCommentUpdate {
+        channel_id: &'a str,
+        forum_topic_comment_id: u32,
+        forum_topic_id: u32,
+    },
     ForumTopicCreate {
         channel_id: &'a str,
     },
@@ -270,6 +293,8 @@ impl<'a> Route<'a> {
             | Self::ChannelMessageReadMany { .. }
             | Self::DocRead { .. }
             | Self::DocReadMany { .. }
+            | Self::ForumTopicCommentRead { .. }
+            | Self::ForumTopicCommentReadMany { .. }
             | Self::ForumTopicRead { .. }
             | Self::ForumTopicReadMany { .. }
             | Self::ListItemRead { .. }
@@ -289,6 +314,7 @@ impl<'a> Route<'a> {
             | Self::ChannelMessageDelete { .. }
             | Self::ContentReactionDelete { .. }
             | Self::DocDelete { .. }
+            | Self::ForumTopicCommentDelete { .. }
             | Self::ForumTopicDelete { .. }
             | Self::ForumTopicUnlock { .. }
             | Self::ForumTopicUnpin { .. }
@@ -302,12 +328,14 @@ impl<'a> Route<'a> {
             | Self::ServerMemberBanDelete { .. }
             | Self::WebhookDelete { .. } => Method::Delete,
             Self::CalendarEventUpdate { .. }
+            | Self::ForumTopicCommentUpdate { .. }
             | Self::ForumTopicUpdate { .. }
             | Self::ServerChannelUpdate { .. } => Method::Patch,
             Self::CalendarEventCreate { .. }
             | Self::ChannelMessageCreate { .. }
             | Self::ContentReactionCreate { .. }
             | Self::DocCreate { .. }
+            | Self::ForumTopicCommentCreate { .. }
             | Self::ForumTopicCreate { .. }
             | Self::GroupMembershipCreate { .. }
             | Self::ListItemCreate { .. }
@@ -502,6 +530,24 @@ impl Display for Route<'_> {
                 Display::fmt(channel_id, f)?;
                 f.write_str("/docs/")?;
                 Display::fmt(doc_id, f)
+            }
+            Self::ForumTopicCommentCreate { channel_id, forum_topic_id }
+            | Self::ForumTopicCommentReadMany { channel_id, forum_topic_id } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+                f.write_str("/topics/")?;
+                Display::fmt(forum_topic_id, f)?;
+                f.write_str("/comments")
+            }
+            Self::ForumTopicCommentDelete { channel_id, forum_topic_comment_id, forum_topic_id }
+            | Self::ForumTopicCommentRead { channel_id, forum_topic_comment_id, forum_topic_id }
+            | Self::ForumTopicCommentUpdate { channel_id, forum_topic_comment_id, forum_topic_id } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+                f.write_str("/topics/")?;
+                Display::fmt(forum_topic_id, f)?;
+                f.write_str("/comments/")?;
+                Display::fmt(forum_topic_comment_id, f)
             }
             Self::ForumTopicCreate { channel_id } | Self::ForumTopicReadMany { channel_id } => {
                 f.write_str("channels/")?;
