@@ -8,6 +8,7 @@ use guilded_validation::embed::thumbnail::ChatEmbedThumbnailValidationError;
 use guilded_validation::embed::{self, ChatEmbedValidationError};
 
 pub mod author;
+pub mod field;
 pub mod footer;
 pub mod image;
 pub mod thumbnail;
