@@ -21,4 +21,9 @@ impl ChatEmbedFieldBuilder {
     pub fn build(self) -> ChatEmbedField {
         self.0
     }
+
+    pub fn inline(mut self, inline: bool) -> Self {
+        self.0.inline.replace(inline);
+        self
+    }
 }
