@@ -11,15 +11,15 @@ rust-version = "1.57.0"
 version = "0.1.0-dev.12"
 
 [dependencies]
-guilded_model = "0.1.0-dev.22"
+guilded_model = "0.1.0-dev.23"
 guilded_validation = "0.1.0-dev.16"
 
 hyper = { default-features = false, features = [ "client", "http1", "http2", "runtime" ], version = "0.14.20" }
 hyper-rustls = { default-features = false, optional = true, features = [ "http1", "http2" ], version = "0.23.0" }
 hyper-tls = { default-features = false, optional = true, version = "0.5.0" }
 hyper-trust-dns = { default-features = false, optional = true, version = "0.4.2" }
-serde = "1.0.145"
-serde_json = "1.0.85"
+serde = "1.0.147"
+serde_json = "1.0.87"
 tokio = { version = "1.21.2", default-features = false, features = ["time"] }
 
 [features]
