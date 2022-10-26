@@ -24,7 +24,7 @@ impl ChatEmbedAuthorBuilder {
         icon_url: impl Into<String>,
     ) -> Result<Self, ChatEmbedAuthorValidationError> {
         let icon_url = icon_url.into();
-        author::validate_footer_icon_url_length(&icon_url)?;
+        author::validate_author_icon_url_length(&icon_url)?;
 
         self.0.icon_url.replace(icon_url);
         Ok(self)
@@ -32,15 +32,15 @@ impl ChatEmbedAuthorBuilder {
 
     pub fn name(mut self, name: impl Into<String>) -> Result<Self, ChatEmbedAuthorValidationError> {
         let name = name.into();
-        author::validate_footer_name_length(&name)?;
+        author::validate_author_name_length(&name)?;
 
-        self.0.name.replace(url);
+        self.0.name.replace(name);
         Ok(self)
     }
 
     pub fn url(mut self, url: impl Into<String>) -> Result<Self, ChatEmbedAuthorValidationError> {
         let url = url.into();
-        author::validate_footer_icon_url_length(&url)?;
+        author::validate_author_url_length(&url)?;
 
         self.0.url.replace(url);
         Ok(self)
