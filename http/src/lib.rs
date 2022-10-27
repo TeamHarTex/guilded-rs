@@ -9,4 +9,4 @@ pub mod request;
 pub mod response;
 pub mod route;
 
-pub const API_VERSION: u8 = 10;
+pub const API_VERSION: u8 = 1;

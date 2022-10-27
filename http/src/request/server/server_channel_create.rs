@@ -1,7 +1,3 @@
-use crate::client::Client;
-
-use crate::error::Error;
-use crate::request::Request;
 use guilded_model::channel::{ServerChannel, ServerChannelType};
 use guilded_model::id::{
     marker::{CategoryMarker, GroupMarker, ServerMarker},
@@ -10,6 +6,9 @@ use guilded_model::id::{
 use guilded_validation::channel::{self, ChannelValidationError};
 use serde::Serialize;
 
+use crate::client::Client;
+use crate::error::Error;
+use crate::request::Request;
 use crate::response::future::ResponseFuture;
 use crate::route::Route;
 
