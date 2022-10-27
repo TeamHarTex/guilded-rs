@@ -11,8 +11,8 @@ rust-version = "1.57.0"
 version = "0.1.0-dev.6"
 
 [dependencies]
-guilded_model = "0.1.0-dev.23"
-guilded_validation = "0.1.0-dev.18"
+guilded_model = "0.1.0-dev.24"
+guilded_validation = "0.1.0-dev.19"
 
 [features]
 builder = []

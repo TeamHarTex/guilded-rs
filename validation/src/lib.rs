@@ -1,5 +1,6 @@
 pub mod channel;
 pub mod embed;
 pub mod message;
+pub mod request;
 
-pub type ValidationResult<E> = Result<(), E>;
+pub(crate) type ValidationResult<E> = Result<(), E>;

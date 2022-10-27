@@ -5,6 +5,7 @@ use std::sync::Arc;
 use std::time::Duration;
 
 use guilded_model::channel::ServerChannelType;
+use guilded_model::id::marker::MessageMarker;
 use guilded_model::id::{
     marker::{ChannelMarker, ServerMarker},
     Id,
@@ -19,6 +20,7 @@ use crate::client::builder::ClientBuilder;
 use crate::client::connector::Connector;
 use crate::error::{Error, ErrorType};
 use crate::request::messaging::channel_message_create::ChannelMessageCreate;
+use crate::request::messaging::channel_message_read::ChannelMessageRead;
 use crate::request::messaging::channel_message_read_many::ChannelMessageReadMany;
 use crate::request::server::server_channel_create::ServerChannelCreate;
 use crate::request::server::server_channel_delete::ServerChannelDelete;
@@ -56,6 +58,14 @@ impl Client {
 
     pub fn channel_message_create(&self, channel_id: Id<ChannelMarker>) -> ChannelMessageCreate {
         ChannelMessageCreate::new(self, channel_id)
+    }
+
+    pub fn channel_message_read(
+        &self,
+        channel_id: Id<ChannelMarker>,
+        message_id: Id<MessageMarker>,
+    ) -> ChannelMessageRead {
+        ChannelMessageRead::new(self, channel_id, message_id)
     }
 
     pub fn channel_message_read_many(

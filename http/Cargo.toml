@@ -8,11 +8,11 @@ edition = "2021"
 license = "ISC"
 repository = "https://github.com/HarTexTeam/guilded-rs"
 rust-version = "1.57.0"
-version = "0.1.0-dev.12"
+version = "0.1.0-dev.13"
 
 [dependencies]
-guilded_model = "0.1.0-dev.23"
-guilded_validation = "0.1.0-dev.18"
+guilded_model = "0.1.0-dev.24"
+guilded_validation = "0.1.0-dev.19"
 
 hyper = { default-features = false, features = [ "client", "http1", "http2", "runtime" ], version = "0.14.20" }
 hyper-rustls = { default-features = false, optional = true, features = [ "http1", "http2" ], version = "0.23.0" }

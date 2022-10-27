@@ -1,6 +1,7 @@
 use guilded_model::datetime::Timestamp;
 use guilded_model::id::{marker::ChannelMarker, Id};
 use guilded_model::messaging::ChatMessage;
+use guilded_validation::request::{messaging, RequestValidationError};
 
 use crate::client::Client;
 use crate::error::Error;
@@ -19,7 +20,7 @@ pub struct ChannelMessageReadMany<'a> {
 }
 
 impl<'a> ChannelMessageReadMany<'a> {
-    pub fn new(client: &'a Client, channel_id: Id<ChannelMarker>) -> Self {
+    pub(crate) fn new(client: &'a Client, channel_id: Id<ChannelMarker>) -> Self {
         Self {
             after: None,
             before: None,
@@ -45,9 +46,11 @@ impl<'a> ChannelMessageReadMany<'a> {
         self
     }
 
-    pub fn limit(mut self, limit: u64) -> Self {
+    pub fn limit(mut self, limit: u64) -> Result<Self, RequestValidationError> {
+        messaging::validate_read_many_limit(limit)?;
+
         self.limit.replace(limit);
-        self
+        Ok(self)
     }
 
     pub fn finish(self) -> ResponseFuture<Vec<ChatMessage>> {
