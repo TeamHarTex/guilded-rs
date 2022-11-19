@@ -22,6 +22,7 @@ use crate::error::{Error, ErrorType};
 use crate::request::messaging::channel_message_create::ChannelMessageCreate;
 use crate::request::messaging::channel_message_read::ChannelMessageRead;
 use crate::request::messaging::channel_message_read_many::ChannelMessageReadMany;
+use crate::request::messaging::channel_message_update::ChannelMessageUpdate;
 use crate::request::server::server_channel_create::ServerChannelCreate;
 use crate::request::server::server_channel_delete::ServerChannelDelete;
 use crate::request::server::server_channel_read::ServerChannelRead;
@@ -73,6 +74,14 @@ impl Client {
         channel_id: Id<ChannelMarker>,
     ) -> ChannelMessageReadMany {
         ChannelMessageReadMany::new(self, channel_id)
+    }
+
+    pub fn channel_message_update(
+        &self,
+        channel_id: Id<ChannelMarker>,
+        message_id: Id<MessageMarker>,
+    ) -> ChannelMessageUpdate {
+        ChannelMessageUpdate::new(self, channel_id, message_id)
     }
 
     pub fn server_channel_create<'a>(

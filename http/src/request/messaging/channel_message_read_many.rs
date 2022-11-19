@@ -11,9 +11,9 @@ use crate::route::Route;
 
 #[must_use = "requests must be configured and executed"]
 pub struct ChannelMessageReadMany<'a> {
+    client: &'a Client,
     after: Option<Timestamp>,
     before: Option<Timestamp>,
-    client: &'a Client,
     channel_id: Id<ChannelMarker>,
     include_private: Option<bool>,
     limit: Option<u64>,
@@ -22,9 +22,9 @@ pub struct ChannelMessageReadMany<'a> {
 impl<'a> ChannelMessageReadMany<'a> {
     pub(crate) fn new(client: &'a Client, channel_id: Id<ChannelMarker>) -> Self {
         Self {
+            client,
             after: None,
             before: None,
-            client,
             channel_id,
             include_private: None,
             limit: None,

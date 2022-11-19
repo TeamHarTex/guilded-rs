@@ -12,8 +12,8 @@ use crate::route::Route;
 
 #[must_use = "requests must be configured and executed"]
 pub struct ChannelMessageRead<'a> {
-    channel_id: Id<ChannelMarker>,
     client: &'a Client,
+    channel_id: Id<ChannelMarker>,
     message_id: Id<MessageMarker>,
 }
 
