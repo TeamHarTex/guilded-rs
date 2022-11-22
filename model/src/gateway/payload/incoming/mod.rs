@@ -1,4 +1,5 @@
 pub mod bot_server_membership_created;
+pub mod bot_server_membership_deleted;
 pub mod calendar_event_created;
 pub mod calendar_event_deleted;
 pub mod calendar_event_rsvp_many_updated;
