@@ -262,6 +262,9 @@ pub enum Route<'a> {
         server_id: &'a str,
         user_id: &'a str,
     },
+    UserRead {
+        user_id: &'a str,
+    },
     WebhookCreate {
         server_id: &'a str,
     },
@@ -307,6 +310,7 @@ impl<'a> Route<'a> {
             | Self::ServerMemberRead { .. }
             | Self::ServerMemberReadMany { .. }
             | Self::ServerRead { .. }
+            | Self::UserRead { .. }
             | Self::WebhookRead { .. }
             | Self::WebhookReadMany { .. } => Method::Get,
             Self::CalendarEventDelete { .. }
@@ -753,6 +757,10 @@ impl Display for Route<'_> {
                 f.write_str("/members/")?;
                 Display::fmt(user_id, f)?;
                 f.write_str("/xp")
+            }
+            Self::UserRead { user_id } => {
+                f.write_str("users/")?;
+                Display::fmt(user_id)
             }
             Self::WebhookCreate { server_id } | Self::WebhookReadMany { server_id } => {
                 f.write_str("servers/")?;
