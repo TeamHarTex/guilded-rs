@@ -1,5 +1,7 @@
 # guilded-rs (MAINTENANCE MODE)
 
+For now, please use https://github.com/SafeShows/guilded_rs
+
 It has been a fun time developing this project. However, there are other projects to focus on and life is important...
 So yeah, guilded-rs is now entering maintenance mode. No major updates will be added.
 
